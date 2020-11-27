@@ -1,5 +1,6 @@
 # Prerequisites
 *.d
+*.c4droid
 
 # Compiled Object files
 *.slo
