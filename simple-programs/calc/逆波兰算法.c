@@ -1,4 +1,4 @@
-				// 来自百度百科
+// 来自百度百科
 #include<stdlib.h>
 #include<stdio.h>
 #define max 100
