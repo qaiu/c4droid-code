@@ -1,0 +1,100 @@
+P219  power 119    0   400          0
+P218  power 118    0   330          0
+P217  power 117    0   260          0
+P216  power 116    0   190          0
+P215  power 115    0   120          0
+P214  power 114    0    50          0
+P213  power 113    0   980          0
+P212  power 112    0   910          0
+P211  power 111    0   840          0
+P210  power 110    0   770          0
+P209  power 109    0   700          0
+P208  power 108    0   630          0
+P207  power 107    0   560          0
+P206  power 106    0   490          0
+P205  power 105    0   420          0
+P204  power 104    0   350          0
+P203  power 103    0   280          0
+P202  power 102    0   210          0
+P201  power 101    0   140          0
+P200  power 100    0    70          0
+M519  motor 269    0   403          0
+M518  motor 268    0   333          0
+M517  motor 267    0   263          0
+M516  motor 266    0   193          0
+M515  motor 265    0   123          0
+M514  motor 264    0    53          0
+M513  motor 263    0   983          0
+M512  motor 262    0   913          0
+M511  motor 261    0   843          0
+M510  motor 260    0   773          0
+M509  motor 259    0   703          0
+M508  motor 258    0   633          0
+M507  motor 257    0   563          0
+M506  motor 256    0   493          0
+M505  motor 255    0   423          0
+M504  motor 254    0   353          0
+M503  motor 253    0   283          0
+M502  motor 252    0   213          0
+M501  motor 251    0   143          0
+M500  motor 250    0    73          0
+M119  machine    690  1399     965310
+M118  machine    680  1329     903720
+M117  machine    670  1259     843530
+M116  machine    660  1189     784740
+M115  machine    650  1119     727350
+M114  machine    640  1049     671360
+M113  machine    630   979     616770
+M112  machine    620   909     563580
+M111  machine    610   839     511790
+M110  machine    600   769     461400
+M109  machine    590   699     412410
+M108  machine    580   629     364820
+M107  machine    570   559     318630
+M106  machine    560   489     273840
+M105  machine    550   419     230450
+M104  machine    540   349     188460
+M103  machine    530   279     147870
+M102  machine    520   209     108680
+M101  machine    510   139      70890
+M100  machine    500    69      34500
+G419  generator  219     0          0
+G418  generator  218     0          0
+G417  generator  217     0          0
+G416  generator  216     0          0
+G415  generator  215     0          0
+G414  generator  214     0          0
+G413  generator  213     0          0
+G412  generator  212     0          0
+G411  generator  211     0          0
+G410  generator  210     0          0
+G409  generator  209     0          0
+G408  generator  208     0          0
+G407  generator  207     0          0
+G406  generator  206     0          0
+G405  generator  205     0          0
+G404  generator  204     0          0
+G403  generator  203     0          0
+G402  generator  202     0          0
+G401  generator  201     0          0
+G400  generator  200     0          0
+E319  equipment  169     0          0
+E318  equipment  168     0          0
+E317  equipment  167     0          0
+E316  equipment  166     0          0
+E315  equipment  165     0          0
+E314  equipment  164     0          0
+E313  equipment  163     0          0
+E312  equipment  162     0          0
+E311  equipment  161     0          0
+E310  equipment  160     0          0
+E309  equipment  159     0          0
+E308  equipment  158     0          0
+E307  equipment  157     0          0
+E306  equipment  156     0          0
+E305  equipment  155     0          0
+E304  equipment  154     0          0
+E303  equipment  153     0          0
+E302  equipment  152     0          0
+E301  equipment  151     0          0
+E300  equipment  150     0          0
