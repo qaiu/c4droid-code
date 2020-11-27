@@ -11,5 +11,19 @@ games and simple program
 长远来看，本仓库会持续更新，部分代码仍有待优化，内容会渐渐丰富，同时是分享一些简单好玩的东西
 目前来讲，因为工作原因，可能会鸽上一段时间，各位计算机专业的同学亦可以提交分享你们作品，多多益善，
 同时质量一定要好哦
-# 目录导航
+# 已包含
+- 俄罗斯方块
+- 扫雷
+- 数字拼图
+- 贪吃蛇
+- 2048
+- 五子棋
+- 天文日历
+- 数独
+- 函数计算器
+- 内存编辑器
+-----
+![Screenshot_20200802005600345_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-00-56-00-345_com.n0n3m4.droida-5c420cfc3c3d4375b0042716b2d2f9f4.jpg)
+![Screenshot_20200802024229807_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-02-42-29-807_com.n0n3m4.droida-3d48ade904dc49bf9f991ad9ff448bc0.jpg)
+![Screenshot_20200802023614588_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-02-36-14-588_com.n0n3m4.droida-ec34f56b785e4d15ad8257d239c1d8a0.jpg)
 
