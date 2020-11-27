@@ -26,8 +26,8 @@ games and simple program
 - 数独
 - 函数计算器
 - 内存编辑器
+- 数百个算法示例
 -----
 ![Screenshot_20200802005600345_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-00-56-00-345_com.n0n3m4.droida-5c420cfc3c3d4375b0042716b2d2f9f4.jpg)
 ![Screenshot_20200802024229807_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-02-42-29-807_com.n0n3m4.droida-3d48ade904dc49bf9f991ad9ff448bc0.jpg)
 ![Screenshot_20200802023614588_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-02-36-14-588_com.n0n3m4.droida-ec34f56b785e4d15ad8257d239c1d8a0.jpg)
-
