@@ -1,0 +1,25 @@
+/* Dijkstra算法 */
+/* 单源最短路径,用于路权相等的情况,dijkstra 优化为bfs,邻接表形式,复杂度O(m)
+ * 求出源s 到所有点的最短路经,传入图的大小n 和邻接表list,边权值len
+ * 返回到各点最短距离min[]和路径pre[],pre[i]记录s 到i 路径上i 的父结点,pre[s]=-1
+ * 可更改路权类型,但必须非负且相等!
+ */
+#define MAXN 200
+#define inf 1000000000
+typedef int elem_t;
+struct edge_t{
+  int from,to;
+  edge_t* next;
+};
+void dijkstra(int n,edge_t* list[],elem_t len,int s,elem_t* min,int* pre){
+  edge_t* t;
+  int i,que[MAXN],f=0,r=0,p=1,l=1;
+  for (i=0;i<n;i++)
+    min[i]=inf;
+  min[que[0]=s]=0,pre[s]=-1;
+  for (;r<=f;l++,r=f+1,f=p-1)
+    for (i=r;i<=f;i++)
+      for (t=list[que[i]];t;t=t->next)
+        if (min[t->to]==inf)
+          min[que[p++]=t->to]=len*l,pre[t->to]=que[i];
+}

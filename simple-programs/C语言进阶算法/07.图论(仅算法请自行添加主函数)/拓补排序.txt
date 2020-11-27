@@ -1,0 +1,24 @@
+/* 拓扑排序 */
+/* 要求 有ind 即入度数组 */
+void TOPO() {
+  int idx[N], stack[N], top = 0, i, cnt = 0;
+  memset(chk, 0, sizeof(chk));
+  while(1) {
+    if(top == 0) {
+      for(i = 0; i < nv; ++i) {
+        if(!chk[i] && ind[i] == 0) 
+          break;
+      }
+      if(i >= nv) break;
+      stack[top++] = i;
+    }
+    idx[cnt++] = i;
+    int cur = i;
+    chk[i] = 1;
+    for(i = 0; i < to[cur].size(); ++i) {
+      ind[to[cur][i]]--;
+      if(ind[to[cur][i]] == 0) 
+        stack[top++] = to[cur][i];
+    }
+  }
+}

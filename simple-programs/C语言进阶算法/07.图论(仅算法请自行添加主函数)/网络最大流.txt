@@ -1,0 +1,35 @@
+/* 网络最大流 */
+/* 求网络最大流,邻接表形式
+ * 返回最大流量,flow 返回每条边的流量
+ * 传入网络节点数n,容量mat,邻接表list,源点source,汇点sink
+ * list[i](vector<int>)存放所有以i 相邻的点,包括反向边!!!
+ */
+#define MAXN 100
+#define inf 1000000000
+int max_flow(int n,int mat[][MAXN],vector<int> list[],int source,int sink,int flow[][MAXN]){
+  int pre[MAXN],que[MAXN],d[MAXN],p,q,t,i,j,r;
+  if (source==sink)
+    return inf;
+  for (i=0;i<n;i++)
+    for (j=0;j<n;flow[i][j++]=0);
+  for (;;){
+    for (i=0;i<n;pre[i++]=0);
+    pre[t=source]=source+1,d[t]=inf;
+    for (p=q=0;p<=q&&!pre[sink];t=que[p++])
+      for (r=0;r<list[t].size();++r){
+        i=list[t][r];
+        if (!pre[i]&&j=mat[t][i]-flow[t][i])
+          pre[que[q++]=i]=t+1,d[i]=d[t]<j?d[t]:j;
+        else if (!pre[i]&&j=flow[i][t])
+          pre[que[q++]=i]=-t-1,d[i]=d[t]<j?d[t]:j;
+      }
+      if (!pre[sink]) break;
+      for (i=sink;i!=source;)
+        if (pre[i]>0)
+          flow[pre[i]-1][i]+=d[sink],i=pre[i]-1;
+        else
+          flow[i][-pre[i]-1]-=d[sink],i=-pre[i]-1;
+  }
+  for (j=i=0;i<n;j+=flow[source][i++]);
+  return j;
+}
