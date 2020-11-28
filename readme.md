@@ -22,11 +22,10 @@ games and simple program
 - 贪吃蛇
 - 2048
 - 五子棋
-- 天文日历
 - 数独
 - 函数计算器
-- 内存编辑器
-- 数百个算法示例
+- [内存编辑器](https://github.com/qaiu/c4droid-code/tree/main/tools/memedit)
+- [数百个算法示例](https://github.com/qaiu/c4droid-code/tree/main/simple-programs/C语言基础算法)
 
 -----
 ![Screenshot_20200802005600345_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-00-56-00-345_com.n0n3m4.droida-5c420cfc3c3d4375b0042716b2d2f9f4.jpg)
