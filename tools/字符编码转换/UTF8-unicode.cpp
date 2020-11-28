@@ -1,3 +1,9 @@
+/**
+ * UTF8转unicode转拼音
+ * 
+ * by: QAIU
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
