@@ -1,0 +1,344 @@
+/*c4droid代码手册
+*坦克大战
+*使用g++编译器
+*gokl__编写
+*TTHHR收集整理
+*转载请说明出处
+*/
+#include<iostream>
+#include<stdio.h>
+#include<conio.h>
+#include<time.h>
+#include<cstdlib>
+#include<pthread.h>
+using namespace std;
+int sleep(int p)
+{
+    time_t t1;
+    time_t t=time(NULL);
+    while(1)if((time(NULL)-t)>(p-1))return t;
+}
+template<size_t tw,size_t th>
+class sscreen
+{
+    public:
+    sscreen(char b,char z)
+    {
+        w=tw;h=th;
+        cls();
+        bc=b;zc=z;
+    }
+    int set(int x,int y,char z)
+    {
+        int tx,ty;
+        tx = (x<0)?0:x;
+        tx = (tx>=w)?w-1:tx;
+        ty = (y<0)?0:y;
+        ty = (ty>=h)?h-1:ty;
+        point[ty][tx]=((w-tx)==1)?0x00:z;
+    }
+    char get(int x,int y)
+    {
+        int tx,ty;
+        tx = (x<0)?0:x;
+        tx = (tx>=w)?w-1:tx;
+        ty = (y<0)?0:y;
+        ty = (ty>=h)?h-1:ty;
+       return point[ty][tx];
+    }
+    int cls(){
+    int i,j; 
+    for(i=0;i<h;i++)
+    for(j=0;j<w;j++)
+    {
+       set(j,i,' ');
+    }
+    clrscr();
+    }
+    int update_tk(int px,int py,int pr)
+    {
+       switch(pr)
+       {
+           case 0:
+           set(px-1,py,bc);
+           set(px+1,py,bc);
+           set(px,py-1,bc);
+           break;
+           case 1:
+           set(px,py-1,bc);
+           set(px,py+1,bc);
+           set(px+1,py,bc);
+           break;
+           case 2:
+           set(px-1,py,bc);
+           set(px+1,py,bc);
+           set(px,py+1,bc);
+           break;
+           case 3:
+           set(px,py-1,bc);
+           set(px,py+1,bc);
+           set(px-1,py,bc);
+           break;
+       }
+       set(px,py,bc);
+    }
+    int update_zd(int px,int py)
+    {
+        set(px,py,zc);
+    }
+    int draw()
+    {
+    int i;
+    for(i=0;i<h;i++)
+    {
+        cout<<point[i]<<endl;
+    }
+    }
+    int update()
+    {
+            cls();
+            draw();
+        return 0;
+    }
+    int w,h;
+    char bc,zc;
+    private:
+    char point[th][tw];
+};
+sscreen<40,15> screen('#','.');
+class _tk
+{
+    public:
+        _tk()
+        {
+            id=-1;r=2;
+            srand(time(NULL));
+            x=rand()%int(screen.w/2);
+            srand(time(NULL));
+            y=rand()%int(screen.h/2);
+        }
+        _tk(int pid)
+        {
+            _tk();
+            id = pid;
+        }
+        int setid(int pid)
+        {
+            id = pid;
+        }
+        int hit()
+        {
+            int m,n;
+            for(m=y-1;m<y+1;m++)
+            for(n=x-1;n<x+1;n++)
+            { if(screen.get(n,m)==screen.zc)return 1;
+            }
+            return 0;
+        }
+        int move()
+        {
+            int tr = r;
+            if(d--)
+            {
+            switch(r)
+              {
+                  case 0:
+                     y--;
+                  break;
+                  case 1:
+                    x++;
+                  break;
+                  case 2:
+                      y++;
+                   break;
+                   case 3:
+                       x--;
+                   break;
+              }
+              if(x<0)x=0;
+              if(y<0)y=0;
+              if(x>screen.w)x=screen.w;
+              if(y>screen.h)y=screen.h;
+              }
+              else
+              {
+                   while(tr==r)
+                   {
+                        srand((unsigned)time(NULL)+x*y);
+                       r = rand()%4;
+                       d = rand()%int((screen.w+screen.h)/3);
+                   }
+              }
+        }
+        _tk& operator=(_tk& ptk)
+        {
+            x = ptk.x;
+            y = ptk.y;
+            r = ptk.r;
+            d = ptk.d;
+            id = ptk.id;
+        }
+    public:
+        int id;
+        int x,y,r,d;
+};
+const int tkc=5;
+_tk tk[tkc];
+struct _zdt
+{
+    int x,y,r,id;
+    _zdt& operator=(_zdt& p)
+    {
+        x=p.x;
+        y=p.y;
+        r=p.r;
+    }
+};
+class _zd
+{
+    public:
+       _zd()
+       {
+           zdcount = 0;
+       }
+       int push(int x,int y,int r)
+       {
+           if(zdcount>=2000)return 0;
+           zdt[zdcount].id = zdcount;
+           zdt[zdcount].x = x;
+           zdt[zdcount].y = y;
+           zdt[zdcount].r = r;
+           zdcount++;
+       }
+       int remove(int pid)
+       {
+           int i=pid;
+           for(i;i<zdcount;i++)
+           {
+               zdt[i]=zdt[i+1];
+           }
+           zdcount--;
+       }
+       int move()
+       {
+           _zdt *td;
+           int i=zdcount;
+           while(i)
+           {
+               td=&zdt[i-1];
+              switch(td->r)
+              {
+                  case 0:
+                     ( td->y)-=2;
+                  break;
+                  case 1:
+                    (td->x)+=2;
+                  break;
+                  case 2:
+                      (td->y)+=2;
+                   break;
+                   case 3:
+                       (td->x)-=2;
+                   break;
+              }
+              if(((td->x)<=0) ||((td->x)>=screen.w))
+              {
+                  remove(td->id);
+              }
+              else
+              if(((td->y)<=0) ||((td->y)>=screen.h))
+              {
+                  remove(td->id);
+              }
+             i--;
+           }
+           
+       }
+   public:
+       _zdt zdt[2000];
+       int zdcount;
+};
+_zd zd;
+int tkcount=1;
+int ct=1;
+char cr,tr=0;
+int power=0;
+pthread_t phid;
+int pid;
+void* usercontrol(void* p)
+{
+  
+    int j;
+    while(1)
+    {
+        cr = getch();
+        if(cr==tr)
+        {
+            power = 1;
+            tk[0].move();
+        }
+        else
+        {
+            power = 0;
+        }
+        {
+            switch(cr)
+            {
+                case 'w':
+                    tk[0].r = 0;
+                break;
+                case 's':
+                    tk[0].r = 2;
+                break;
+                case 'a':
+                    tk[0].r = 3;
+                break;
+                case 'd':
+                    tk[0].r = 1;
+                break;
+            }
+        }
+        tr=cr;
+    }
+}
+int main()
+{
+    pid=pthread_create(&phid,NULL,usercontrol,NULL);
+    int i,j;
+     while(!pid)
+     { 
+         if((ct++)>10000)ct=1;
+           if(!(ct%3))
+         {
+           for(i=0;i<tkcount;i++) zd.push(tk[i].x,tk[i].y,tk[i].r);
+         }
+         if(!(ct%10))
+         {
+             tk[tkcount].x=rand()%(screen.w/2);
+             if(tkcount<tkc)tkcount++;
+         }
+         if(!(ct%1))
+         {
+         for(i=0;i<zd.zdcount;i++) screen.update_zd(zd.zdt[i].x,zd.zdt[i].y);
+             if(power)tk[0].move();
+             zd.move();
+            for(i=0;i<tkcount;i++)
+            {
+               if(i) tk[i].move(); screen.update_tk(tk[i].x,tk[i].y,tk[i].r);
+                 if(i && tk[i].hit())
+                 {
+                     for(j=i;j<tkcount;j++)
+                     {
+                         tk[j]=tk[j+1];
+                     }
+                     tkcount--;
+                     i-=1;
+                 }
+             } 
+             screen.draw();
+             
+         }
+         sleep(1);
+         screen.cls();
+     }
+}
