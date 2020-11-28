@@ -47,7 +47,7 @@ static int kbhit(void)
     fcntl(STDIN_FILENO, F_SETFL, oldf);
     return (ch != EOF)? ungetc(ch, stdin),1:0;
 }
- 
+
 static void gotoxy(int x, int y) { printf("\033[%d;%df", y, x); }
 
 static void _gotoxy(int x,int y) {gotoxy(x,y);}
