@@ -1,6 +1,6 @@
 /* 
  * 1. unicode--UTF-8相互转换
- * 2. 汉字注音
+ * 2. 汉字转注音
  * by QAIU
  */
 
@@ -203,51 +203,15 @@ void closeu2py()
 	delete_list(pynext);
 	pyhead = pynext = NULL;
 }
-void fun()
-{
-	char str[64]={};
-	initu2py();
-	u2py(str,"看到了吗，没有,呵呵老将出马,一个顶俩...", "");
-
-	printf(str);
-	closeu2py();
-/*
-	int a;
-	utf2uni("一", &a);
-	printf("%x\n",a);
-	return 0;
-//*/
-}
 
 int main(int argc, char **argv)
 {
+	char str[64]={};
+	//1.初始化内存数据
 	initu2py();
-	FILE *fp=fopen("cy5w.txt","r");
-	FILE *fp2=fopen("data4.txt","w");
-	char buf[64]={};
-	char py[64]={};
-	
-	fun();
-	
+	//2.汉字转拼音，参数: 转后的字符数组(足够大)，原中文字符，分割符
+	u2py(str,"QAIU 耗子尾汁...", "|");
+	printf(str);
+	//3.清理内存
 	closeu2py();
-/*	printf("%d\n",sizeof(py));/*
-	while(fgets(buf,64,fp))
-	{
-		usleep(1);
-		memset(py,0,sizeof (py));
-		u2py(py,buf,"'");
-		py[strlen(py)-2]=0;
-		buf[strlen(buf)-1]=0;
-		
-		fprintf(fp2,"%s %s\n",buf,py);
-	//	py[strlen(py)-1]=0;
-		
-//		puts(py);
-//		free( py);
-//		py=NULL;
-		//sscanf(buf,"%s%s%*s",cy);
-	}
-	fclose(fp);
-	fclose(fp2);
-	//*/
 }
