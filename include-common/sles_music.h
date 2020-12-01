@@ -4,8 +4,8 @@ by:千百度
 修改自CSDN论坛
 原文链接:http://m.blog.csdn.net/tanningzhong/article/details/48002101
 */
-#ifndef MUSIC_H
-#define MUSIC_H
+#ifndef SLES_MUSIC_H
+#define SLES_MUSIC_H
 
 #include <SLES/OpenSLES.h>
 #include <stdbool.h>
@@ -142,4 +142,4 @@ void PlayShutdown()
 	}
 }
 
-#endif
+#endif //SLES_MUSIC_H
