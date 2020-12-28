@@ -1,7 +1,7 @@
 # this is android c4droid codes
 games and simple program  
-github: https://github.com/qaiu/c4droid-code.git  
-国内gitee镜像: https://gitee.com/QAIU/c4droid-code.git
+github: https://github.com/qaiu/c4droid-code  
+国内gitee镜像: https://gitee.com/QAIU/c4droid-code  
 # 简介
 压箱底的c4droid代码，都是前几年练手的，有小游戏，小工具，还有各种整理的算法  
 `c4droid`是一款安卓上的c语言和cpp开发环境，本质上是一款集成GCC的编辑器而已，功能简单
