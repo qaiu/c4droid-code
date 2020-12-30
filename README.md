@@ -26,8 +26,8 @@ QQ群2：172725648
 - 五子棋
 - 数独
 - 函数计算器
-- [内存编辑器](https://github.com/qaiu/c4droid-code/tree/main/tools/memedit)
-- [数百个算法示例](https://github.com/qaiu/c4droid-code/tree/main/simple-programs/C语言基础算法)
+- [内存编辑器](https://github.com/qaiu/c4droid-code/tree/main/Tool/memedit)
+- [数百个算法示例](https://github.com/qaiu/c4droid-code/tree/main/Learn/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95)
 
 -----
 ![Screenshot_20200802005600345_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-00-56-00-345_com.n0n3m4.droida-5c420cfc3c3d4375b0042716b2d2f9f4.jpg)
