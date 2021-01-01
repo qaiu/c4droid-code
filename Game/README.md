@@ -50,6 +50,7 @@
 
 | SDL2.x项目 | 版本 | 作者/来源 |
 | :-------- | :---: | :-----: |
+| [黑白块](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/黑白块 | v1.0 | 白狼·圣狂 |
 
 ---
 
