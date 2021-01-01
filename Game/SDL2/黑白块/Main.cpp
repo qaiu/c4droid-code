@@ -202,7 +202,7 @@ int windowx, windowy;
 
 // 暂停标志位(弃用但请勿删除，
 //          否则编译将不过关)
-bool IsPause
+bool IsPause;
 
 // 程序运行控制
 bool Run;
