@@ -32,8 +32,8 @@
 | [俄罗斯方块](https://github.com/qaiu/c4droid-code/tree/main/Game/Console/俄罗斯方块) | v1.5.5&#10;v1.0 | QAIU |
 | [2048](https://github.com/qaiu/c4droid-code/tree/main/Game/Console/2048) | v1.1 | QAIU |
 | [2048](https://github.com/qaiu/c4droid-code/tree/main/Game/Console/2048) | v1.0 | ArchLinux-aur |
-| [扫雷](https://github.com/qaiu/c4droid-code/tree/main/Game/Console/扫雷) | v1.4 | QAIU |
-| [扫雷](https://github.com/qaiu/c4droid-code/tree/main/Game/Console/扫雷) | v1.0 | Cyberworld |
+| [扫雷](https://github.com/qaiu/c4droid-code/tree/main/Game/Console/扫雷游戏) | v1.4 | QAIU |
+| [扫雷](https://github.com/qaiu/c4droid-code/tree/main/Game/Console/扫雷游戏) | v1.0 | Cyberworld |
 | [数独](https://github.com/qaiu/c4droid-code/tree/main/Game/Console/数独) | v1.0 | QAIU |
 | [像素鸟](https://github.com/qaiu/c4droid-code/tree/main/Game/Console/像素鸟) | v1.0 | QQ:&#10;3258359040 |
 | [贪吃蛇](https://github.com/qaiu/c4droid-code/tree/main/Game/Console/贪吃蛇) | v2.0 | QAIU |
