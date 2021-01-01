@@ -41,8 +41,8 @@
 
 | 移植库项目 | 版本 | 作者/来源 |
 | :------- | :---: | :-----: |
-| [Linux/conio.h]("Linux/conio.h") | v1.0 | QAIU |
-| [Linux/seles_music.h]("Linux/conio.h") | v1.0 | [CSDN论坛]("http://m.blog.csdn.net/tanningzhong/article/details/48002101") |
+| [Linux/conio.h](https://github.com/qaiu/c4droid-code/tree/main/Linux/conio.h) | v1.0 | QAIU |
+| [Linux/seles_music.h](https://github.com/qaiu/c4droid-code/tree/main/Linux/conio.h) | v1.0 | [CSDN论坛](http://m.blog.csdn.net/tanningzhong/article/details/48002101) |
 
 ---
 
@@ -53,13 +53,13 @@
 
 | SDL1.x项目 | 版本 | 作者/来源 |
 | :-------- | :---: | :-----: |
-| [SDL_AniGIF]("SDL/SDL_AniGIF") | v1.0.0 | 网络资源 |
+| [SDL_AniGIF](https://github.com/qaiu/c4droid-code/tree/main/SDL/SDL_AniGIF) | v1.0.0 | 网络资源 |
 
 ---
 
 | SDL2.x项目 | 版本 | 作者/来源 |
 | :-------- | :---: | :-----: |
-| [SDL_AniGIF]("SDL2/SDL_AniGIF") | v1.0.0 | 网络资源 |
+| [SDL_AniGIF](https://github.com/qaiu/c4droid-code/tree/main/SDL2/SDL_AniGIF) | v1.0.0 | 网络资源 |
 
 ---
 

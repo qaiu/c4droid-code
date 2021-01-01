@@ -24,7 +24,7 @@
 
 | 图片项目 | 作者/来源 |
 | :------- | :--------: |
-| [Android UI]("Image/AndroidUI") | 爱给资源网 |
+| [Android UI](https://github.com/qaiu/c4droid-code/tree/main/Image/AndroidUI) | 爱给资源网 |
 
 ---
 

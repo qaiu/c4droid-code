@@ -26,20 +26,20 @@
 
 | 控制台项目 | 版本 | 作者/来源 |
 | :----------- | :----: | :----------: |
-| [数字拼图]("Console/数字拼图") | v1.3  | QAIU |
-| [五子棋]("Console/五子棋") | v1.0 | e自由电子&#10;QAIU |
-| [成语接龙]("Console/成语接龙") | v1.0 | QAIU |
-| [俄罗斯方块]("Console/俄罗斯方块") | v1.5.5&#10;v1.0 | QAIU |
-| [2048]("Console/2048") | v1.1 | QAIU |
-| [2048]("Console/2048") | v1.0 | ArchLinux-aur |
-| [扫雷]("Console/扫雷") | v1.4 | QAIU |
-| [扫雷]("Console/扫雷") | v1.0 | Cyberworld |
-| [数独]("Console/数独") | v1.0 | QAIU |
-| [像素鸟]("Console/像素鸟") | v1.0 | QQ:&#10;3258359040 |
-| [贪吃蛇]("Console/贪吃蛇") | v2.0 | QAIU |
-| [贪吃蛇]("Console/贪吃蛇") | v1.1 | Cyberworld |
-| [贪吃蛇]("Console/贪吃蛇") | v1.0 | 一叶成林 |
-| [贪吃蛇]("Console/贪吃蛇") | v1.0 | 啊o额iu鱼 |
+| [数字拼图](https://github.com/qaiu/c4droid-code/tree/main/Console/数字拼图) | v1.3  | QAIU |
+| [五子棋](https://github.com/qaiu/c4droid-code/tree/main/Console/五子棋) | v1.0 | e自由电子&#10;QAIU |
+| [成语接龙](https://github.com/qaiu/c4droid-code/tree/main/Console/成语接龙) | v1.0 | QAIU |
+| [俄罗斯方块](https://github.com/qaiu/c4droid-code/tree/main/Console/俄罗斯方块) | v1.5.5&#10;v1.0 | QAIU |
+| [2048](https://github.com/qaiu/c4droid-code/tree/main/Console/2048) | v1.1 | QAIU |
+| [2048](https://github.com/qaiu/c4droid-code/tree/main/Console/2048) | v1.0 | ArchLinux-aur |
+| [扫雷](https://github.com/qaiu/c4droid-code/tree/main/Console/扫雷) | v1.4 | QAIU |
+| [扫雷](https://github.com/qaiu/c4droid-code/tree/main/Console/扫雷) | v1.0 | Cyberworld |
+| [数独](https://github.com/qaiu/c4droid-code/tree/main/Console/数独) | v1.0 | QAIU |
+| [像素鸟](https://github.com/qaiu/c4droid-code/tree/main/Console/像素鸟) | v1.0 | QQ:&#10;3258359040 |
+| [贪吃蛇](https://github.com/qaiu/c4droid-code/tree/main/Console/贪吃蛇) | v2.0 | QAIU |
+| [贪吃蛇](https://github.com/qaiu/c4droid-code/tree/main/Console/贪吃蛇) | v1.1 | Cyberworld |
+| [贪吃蛇](https://github.com/qaiu/c4droid-code/tree/main/Console/贪吃蛇) | v1.0 | 一叶成林 |
+| [贪吃蛇](https://github.com/qaiu/c4droid-code/tree/main/Console/贪吃蛇) | v1.0 | 啊o额iu鱼 |
 
 ---
 
