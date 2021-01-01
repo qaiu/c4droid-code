@@ -163,7 +163,7 @@ void drawmap()
 		switch(map[i][j])
 		{
 			case 0:
-			printf("\033[40;3%dm  \33[40;37m");
+			printf("  \33[40;37m");
 			break;
 			case 1:
 			printf("\033[46;35m**\33[40;37m");
