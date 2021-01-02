@@ -543,7 +543,7 @@ void Init()
 	SDL_RenderClear(render);
 	SDL_RenderPresent(render);
 	
-	if (!(font = TTF_OpenFont("resources/user.ttf", FONT_SIZE)))
+	if (!(font = TTF_OpenFont("../../../Resources/Font/D2-coding.ttf", FONT_SIZE)))
 		if (!(font = TTF_OpenFont("/system/fonts/DroidSans.ttf", FONT_SIZE)))
 			exit(EXIT_FAILURE);
 	
