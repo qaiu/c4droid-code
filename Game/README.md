@@ -10,15 +10,15 @@
 
 + **Console控制台** - 存放在Console文件夹下
 
-+ **SDL1.x**               - 存放在SDL文件夹下
++ **SDL1.x** - 存放在SDL文件夹下
 
-+ **SDL2.x**               - 存放在SDL2文件夹下
++ **SDL2.x** - 存放在SDL2文件夹下
 
-+ **SFML**                  - 存放在SFML文件夹下 
++ **SFML** - 存放在SFML文件夹下 
 
-+ **FLTK**                   - 存放在FLTK文件夹下
++ **FLTK** - 存放在FLTK文件夹下
 
-+ **Qt**                       - 存放在Qt文件夹下
++ **Qt** - 存放在Qt文件夹下
 
 ### 文件与来源
 
@@ -47,18 +47,19 @@
 | :-------- | :---: | :-----: |
 | [拼图](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL/拼图) | v1.0 | TTHHR |
 | [Flappy Bird](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL/flappybird) | v3.0 | 木影随风 |
-| [Nes模拟器](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL/nes模拟器) | V1.1 | LOTOOHE |
+| [Nes模拟器](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL/nes模拟器) | V1.1 | LOTOOHE&#10;白狼·圣狂 |
 
 ---
 
 | SDL2.x项目 | 版本 | 作者/来源 |
 | :-------- | :---: | :-----: |
 | [黑白块](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/黑白块) | v1.0 | 白狼·圣狂 |
-| [别踩白块儿](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/别踩白块) | v2,1 | 风飞飘扬是本人 |
+| [别踩白块儿](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/别踩白块) | v2.1 | 风飞飘扬是本人 |
 | [简易绘图](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/简易绘图) | v1.0 | 硫酸雨 |
 | [简易计算器](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/简易计算器) | v1.0 | 请赐教摩羯 |
 | [消灭星星](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/消灭星星) | v5.3 | j小夕ve |
 | [影分身](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/影分身游戏) | v1.0 | dd7262000 |
+| [Nes模拟器](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/Nes模拟器) | v1.1 | LOTOOHE |
 
 ---
 
