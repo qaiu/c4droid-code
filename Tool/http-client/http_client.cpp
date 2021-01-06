@@ -68,8 +68,6 @@ typedef struct http_request_info *PREQ_INFO;
 typedef struct http_response RESP;
 typedef struct http_response *PRESP;
 
-//可测试地址 frp.qaiu.top:9888/xboot/common/needLogin
-
 //创建基于socket的tcp连接
 int create_connect(const char *host,int port) {
 	int socket_fd;
