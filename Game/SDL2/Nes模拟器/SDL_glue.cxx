@@ -2,16 +2,25 @@
  *  Nes模拟器1.1 SDL2版
  *  原作品: 见mynes.c文件
  *  移植: 白狼·圣狂
- *  说明: 从SDL到SDL2的移植，
+ *  说明: 
+ *       从SDL到SDL2的移植，
  *       原作品稍有修改，优化代码，
- *       运行从此处开始
+ *       运行从此处开始，
+ *       建议把自动旋转打开，
+ *       或把竖屏锁定关闭，
+ *       然后横屏游玩
  *  编译:
- *       32位G++17
+ *       32位G++14
  */
 
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+
+///////////////////////////////
+//       Nes游戏卡带路径       //
+///////////////////////////////
+#define NESNAME "resources/rom/马戏团.nes"
 
 
 #define SDLglue_Surface SDL_Surface
@@ -40,8 +49,12 @@ enum BUTTONENUM{
 	BUTTON_RIGHT,
 	BUTTON_A,
 	BUTTON_B,
+	BUTTON_ADOWN,
+	BUTTON_BDOWN,
 	BUTTON_ENTER,
 	BUTTON_ESC,
+	BUTTON_ENTERDOWN,
+	BUTTON_ESCDOWN,
 	BUTTON_MAX
 };
 
@@ -53,8 +66,12 @@ const char* BUTTONPATH[BUTTON_MAX] = {
 	"../../../Resources/Image/AndroidUI/lineLight/lineLight04.png",
 	"../../../Resources/Image/AndroidUI/lineLight/lineLight34.png",
 	"../../../Resources/Image/AndroidUI/lineLight/lineLight35.png",
+	"../../../Resources/Image/AndroidUI/lineLight/lineLight50.png",
+	"../../../Resources/Image/AndroidUI/lineLight/lineLight50.png",
 	"../../../Resources/Image/AndroidUI/lineLight/lineLight31.png",
-	"../../../Resources/Image/AndroidUI/lineLight/lineLight33.png"
+	"../../../Resources/Image/AndroidUI/lineLight/lineLight33.png",
+	"../../../Resources/Image/AndroidUI/lineLight/lineLight51.png",
+	"../../../Resources/Image/AndroidUI/lineLight/lineLight51.png"
 };
 
 
@@ -163,6 +180,7 @@ void SDLglue_FixButtonRect()
 				break;
 			
 			case BUTTON_ENTER:
+			case BUTTON_ENTERDOWN:
 				ButtonRect[i] = {
 					x: w - min / 8,
 					y: 0,
@@ -172,6 +190,7 @@ void SDLglue_FixButtonRect()
 				break;
 			
 			case BUTTON_ESC:
+			case BUTTON_ESCDOWN:
 				ButtonRect[i] = {
 					x: 0,
 					y: 0,
@@ -181,6 +200,7 @@ void SDLglue_FixButtonRect()
 				break;
 			
 			case BUTTON_A:
+			case BUTTON_ADOWN:
 				ButtonRect[i] = {
 					x: w - min / 2,
 					y: h - min / 4,
@@ -190,6 +210,7 @@ void SDLglue_FixButtonRect()
 				break;
 			
 			case BUTTON_B:
+			case BUTTON_BDOWN:
 				ButtonRect[i] = {
 					x: w - min / 4,
 					y: h - min / 2,
@@ -258,6 +279,10 @@ void SDLglue_ShowButton()
 			case BUTTON_DOWN:
 			case BUTTON_LEFT:
 			case BUTTON_RIGHT:
+			case BUTTON_ADOWN:
+			case BUTTON_BDOWN:
+			case BUTTON_ENTERDOWN:
+			case BUTTON_ESCDOWN:
 				if (ButtonState[i] == SDL_TRUE)
 					SDL_RenderCopy(render, ButtonImg[i], NULL, &ButtonRect[i]);
 				break;
@@ -265,6 +290,11 @@ void SDLglue_ShowButton()
 			default:
 				break;
 		}
+}
+
+void SDLglue_Flush()
+{
+	SDL_RenderPresent(render);
 }
 
 SDL_bool SDLglue_JudgeInclude(int x, int y, SDL_Rect* rect)
@@ -277,12 +307,12 @@ SDL_bool SDLglue_JudgeInclude(int x, int y, SDL_Rect* rect)
 
 void SDLglue_HookButton(const SDL_Event* event)
 {
-	static int Fingers[2] = {-1, -1};
+	static int Fingers[3] = {-1, -1, -1};
 	static SDL_Event sevent;
 	static int w, h;
 	static int x, y;
 	
-	if (event->type == SDL_FINGERDOWN && event->tfinger.fingerId < 2)
+	if (event->type == SDL_FINGERDOWN && event->tfinger.fingerId < 3)
 	{
 		SDL_GetWindowSize(window, &w, &h);
 		x = event->tfinger.x * w;
@@ -312,21 +342,25 @@ void SDLglue_HookButton(const SDL_Event* event)
 		{
 			Fingers[event->tfinger.fingerId] = BUTTON_B;
 			sevent.key.keysym.sym = SDLK_4;
+			ButtonState[BUTTON_BDOWN] = SDL_TRUE;
 		}
 		else if (SDLglue_JudgeInclude(x, y, &ButtonRect[BUTTON_A]) == SDL_TRUE)
 		{
 			Fingers[event->tfinger.fingerId] = BUTTON_A;
 			sevent.key.keysym.sym = SDLK_3;
+			ButtonState[BUTTON_ADOWN] = SDL_TRUE;
 		} 
 		else if (SDLglue_JudgeInclude(x, y, &ButtonRect[BUTTON_ENTER]) == SDL_TRUE)
 		{
 			Fingers[event->tfinger.fingerId] = BUTTON_ENTER;
 			sevent.key.keysym.sym = SDLK_RETURN;
+			ButtonState[BUTTON_ENTERDOWN] = SDL_TRUE;
 		} 
 		else if (SDLglue_JudgeInclude(x, y, &ButtonRect[BUTTON_ESC]) == SDL_TRUE)
 		{
 			Fingers[event->tfinger.fingerId] = BUTTON_ESC;
 			sevent.key.keysym.sym = SDLK_ESCAPE;
+			ButtonState[BUTTON_ESCDOWN] = SDL_TRUE;
 		}
 		else
 			return;
@@ -334,7 +368,7 @@ void SDLglue_HookButton(const SDL_Event* event)
 		sevent.type = SDL_KEYDOWN;
 		ButtonState[Fingers[event->tfinger.fingerId]] = SDL_TRUE;
 	} 
-	else if (event->type == SDL_FINGERUP && event->tfinger.fingerId < 2)
+	else if (event->type == SDL_FINGERUP && event->tfinger.fingerId < 3)
 	{
 		switch (Fingers[event->tfinger.fingerId])
 		{
@@ -356,18 +390,22 @@ void SDLglue_HookButton(const SDL_Event* event)
 			
 			case BUTTON_A:
 				sevent.key.keysym.sym = SDLK_3;
+				ButtonState[BUTTON_ADOWN] = SDL_FALSE;
 				break;
 			
 			case BUTTON_B:
 				sevent.key.keysym.sym = SDLK_4;
+				ButtonState[BUTTON_BDOWN] = SDL_FALSE;
 				break;
 			
 			case BUTTON_ENTER:
 				sevent.key.keysym.sym = SDLK_RETURN;
+				ButtonState[BUTTON_ENTERDOWN] = SDL_FALSE;
 				break;
 			
 			case BUTTON_ESC:
 				sevent.key.keysym.sym = SDLK_ESCAPE;
+				ButtonState[BUTTON_ESCDOWN] = SDL_FALSE;
 				break;
 				
 			default:

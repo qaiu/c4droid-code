@@ -56,6 +56,8 @@ void setkey(void)
 void Start()
 {
 	SDLglue_FillRect(chuang, &chuang->clip_rect, 0xffffff);
+	SDLglue_UpdateRect(chuang, 0, 0, P_W, P_W);
+	SDLglue_Flush();
 	SDLglue_Delay(500);
 	nes_main();
 }
@@ -69,7 +71,7 @@ int main(int argc, char *argv[])
 	ROM_len = 0;
 	rom_file = NULL;
 	FILE *fp = NULL;
-	fp = fopen("nes.nes", "rb");
+	fp = fopen(NESNAME, "rb");
 	fseek(fp, 0, SEEK_END);
 	ROM_len = ftell(fp);
 	rewind(fp);

@@ -70,7 +70,7 @@ void NEStimer(int32 data)
 			SDLglue_FixButtonRect();
 			SDLglue_ShowButton();
 		}
-		SDL_RenderPresent(render);
+		SDLglue_Flush();
 	}
 
 }
