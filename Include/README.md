@@ -41,13 +41,14 @@
 
 | 移植库项目 | 版本 | 作者/来源 |
 | :------- | :---: | :-----: |
-| [Linux/conio.h](https://github.com/qaiu/c4droid-code/tree/main/Include/Linux) | v1.0 | QAIU |
-| [Linux/seles_music.h](https://github.com/qaiu/c4droid-code/tree/main/Include/Linux) | v1.0 | [CSDN论坛](http://m.blog.csdn.net/tanningzhong/article/details/48002101) |
+| [Linux/conio.h](https://github.com/qaiu/c4droid-code/tree/main/Include/Linux/conio.h) | v1.0 | QAIU |
+| [Linux/seles_music.h](https://github.com/qaiu/c4droid-code/tree/main/Include/Linux/seles_music.h) | v1.0 | [CSDN论坛](http://m.blog.csdn.net/tanningzhong/article/details/48002101) |
 
 ---
 
 | 控制台项目 | 版本 | 作者/来源 |
 | :------- | :---: | :-----: |
+[screeninfo.h](https://github.com/qaiu/c4droid-code/tree/main/Include/Console/screeninfo) | v1.0 | 白狼·圣狂 |
 
 ---
 
