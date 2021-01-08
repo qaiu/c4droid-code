@@ -31,8 +31,6 @@
 #define W 16 //列
 #define TETROMINO_SIZE 4
 
-//实现Linux下------conio.h 可以有多种方式
-
 //读取单字符 https://my.oschina.net/yougui/blog/111345
 char getch() 
 {
@@ -44,22 +42,6 @@ char getch()
     char c=getchar();
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
     return c;
-}
-
-//判断输入 https://www.cnblogs.com/xiayong123/archive/2011/07/19/3717262.html
-int kbhit(void)
-{
-    struct termios oldt, newt;
-    tcgetattr(STDIN_FILENO, &oldt);
-    newt = oldt;
-    newt.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-    int oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
-    fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
-    int ch = getchar();
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    fcntl(STDIN_FILENO, F_SETFL, oldf);
-    return (ch != EOF)? ungetc(ch, stdin),1:0;
 }
 
 //--------------核心代码开始
@@ -90,7 +72,7 @@ const int coord_y[7][2][TETROMINO_SIZE] = {
     
 };
 
-volatile int height = 0, down_bottom_flag = 0, pause_flag = 1, line = 0, score = 0, level = 0;
+volatile int height = 0, down_bottom_flag = 0, line = 0, score = 0, level = 0;
 int map[H + 1][W + 1] = { };
 
 pthread_mutex_t mut = PTHREAD_MUTEX_INITIALIZER;
@@ -268,9 +250,9 @@ void down_move()
         draw_map();
         memset(map, 0, sizeof(map));
         init_map();
-        down_bottom_flag = pause_flag = score = line = level = 0;
+        down_bottom_flag = score = line = level = 0;
         printf("\e[10;23f\e[47;30mGame Over!\n\e[0m");
-        pause_flag = getch();
+        getch();
     } else {//没有结束的话执行消行(如果可以)
         score += 10; //基础分
         judge(high);
@@ -280,39 +262,46 @@ void down_move()
     }
 }
 
-//事件函数，使用多线程所以需要一个void指针
+// 事件函数，使用多线程所以需要一个void指针
 void *event(void *p)
 {
-    while (1) {
-        if (!pause_flag) continue;
-        while (kbhit()) {
-            int key = getch();
-            switch (key) {
-            case 'a': case '4': //左移
-                horizontal_move(-1);
-                break;
-            case 'd': case '6': //右移
-                horizontal_move(1);
-                break;
-            case 'w': case '2': //旋转
-                rotate();
-                break;
-            case 's': case '5': //下移
-                down_move();
-                break;
-            case ' ': case 10: //硬降
-                while (!down_bottom_flag) down_move();
-                down_move();
-                break;
-            case 'Q': case 'q':
-                puts("\e[2J\e[1;1H\t\tBye~ @Author QAIU");
-                exit(0);
-                break;
-            }
-            draw_map();
-        }
-    }
-    return NULL;
+	while (1)
+	{
+		int key = getch();
+		switch (key)
+		{
+		case 'a':
+		case '4':				// 左移
+			horizontal_move(-1);
+			break;
+		case 'd':
+		case '6':				// 右移
+			horizontal_move(1);
+			break;
+		case 'w':
+		case '2':				// 旋转
+			rotate();
+			break;
+		case 's':
+		case '5':				// 下移
+			down_move();
+			break;
+		case ' ':
+		case 10:				// 硬降
+			while (!down_bottom_flag)
+				down_move();
+			down_move();
+			break;
+		case 'Q':
+		case 'q':
+			puts("\e[2J\e[1;1H\t\tBye~ @Author QAIU");
+			exit(0);
+			break;
+		}
+		draw_map();
+
+	}
+	return NULL;
 }
 
 //主函数 初始地图->绘制->(休眠一段时间)->执行下落->循环...
