@@ -1,24 +1,14 @@
 /**
- * C语言俄罗斯方块
- * C language simple tetris
- *
+ * C语言控制台俄罗斯方块 
  * 使用gcc或者clang编译，安卓系统推荐c4droid和termux
- * Usr the gcc or clang compile.
- * Android system recommend c4droid and termux
- *
  * 操作说明: 46或ad键左右移动 2或w旋转 8或s下落 回车或空格硬降 Q退出
- * Help: '4/6' or 'a/d' key to move left and right,
- * '2' or 'w' to rotate, '8' or 's' to drop, 
- * enter or space hard drop, 'q/Q' to quit
- *
  * blog: https://blog.qaiu.top
  * 
  * @Date: 2019.6
  * @Author QAIU
  */
- 
+
 #include <stdio.h>
-//#include <conio.h> //c4droid自带conio.h
 #include <time.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -26,25 +16,10 @@
 #include <unistd.h>
 #include <unistd.h>
 #include <fcntl.h>
-
 #define H 21 //地图行大小
 #define W 16 //列
 #define TETROMINO_SIZE 4
 
-//读取单字符 https://my.oschina.net/yougui/blog/111345
-char getch() 
-{
-    struct termios oldt, newt;
-    tcgetattr(STDIN_FILENO, &oldt);
-    memcpy(&newt, &oldt, sizeof(newt));
-    newt.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOPRT | ECHOKE | ICRNL);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-    char c=getchar();
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    return c;
-}
-
-//--------------核心代码开始
 typedef struct { //方块结构体
     int x[4][4], y[4][4], type;
 } TETROMINO;
@@ -74,9 +49,22 @@ const int coord_y[7][2][TETROMINO_SIZE] = {
 
 volatile int height = 0, down_bottom_flag = 0, line = 0, score = 0, level = 0;
 int map[H + 1][W + 1] = { };
+pthread_mutex_t mut = PTHREAD_MUTEX_INITIALIZER; //同步锁
 
-pthread_mutex_t mut = PTHREAD_MUTEX_INITIALIZER;
+//读取单字符 https://my.oschina.net/yougui/blog/111345
+char getch() 
+{
+    struct termios oldt, newt;
+    tcgetattr(STDIN_FILENO, &oldt);
+    memcpy(&newt, &oldt, sizeof(newt));
+    newt.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOPRT | ECHOKE | ICRNL);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    char c=getchar();
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    return c;
+}
 
+//初始化地图(边框)
 void init_map(void)
 {
     for (int i = 0; i <= H; ++i) {
@@ -146,8 +134,7 @@ TETROMINO get_tetromino()
 
 //判定函数 
 void judge(int high)
-{
-    //遍历每一行判断是否有连成一条线的行
+{   //遍历每一行判断是否有连成一条线的行
     int sum = 0, flag = 1;
     for (int i = high - 3; i <= high; i++, flag = 1) {
         for (int j = 1; j < 11; j++) {
@@ -165,8 +152,7 @@ void judge(int high)
             sum++, line++;
         }
     }
-    //得分
-    score += (sum * sum * 100 / 2), level = level < 10 ? line / 10 : 0;
+    score += (sum * sum * 100 / 2), level = level < 10 ? line / 10 : 0;  //得分
 }
 
 //判断方块是否落到底部
@@ -265,57 +251,46 @@ void down_move()
 // 事件函数，使用多线程所以需要一个void指针
 void *event(void *p)
 {
-	while (1)
-	{
+	while (1) {
 		int key = getch();
-		switch (key)
-		{
-		case 'a':
-		case '4':				// 左移
+		switch (key) {
+		case 'a':case '4':				// 左移
 			horizontal_move(-1);
 			break;
-		case 'd':
-		case '6':				// 右移
+		case 'd':case '6':				// 右移
 			horizontal_move(1);
 			break;
-		case 'w':
-		case '2':				// 旋转
+		case 'w':case '2':				// 旋转
 			rotate();
 			break;
-		case 's':
-		case '5':				// 下移
+		case 's':case '5':				// 下移
 			down_move();
 			break;
-		case ' ':
-		case 10:				// 硬降
+		case ' ':case 10:				// 硬降
 			while (!down_bottom_flag)
 				down_move();
 			down_move();
 			break;
-		case 'Q':
-		case 'q':
+		case 'Q':case 'q':
 			puts("\e[2J\e[1;1H\t\tBye~ @Author QAIU");
 			exit(0);
 			break;
 		}
 		draw_map();
-
 	}
 	return NULL;
 }
 
-//主函数 初始地图->绘制->(休眠一段时间)->执行下落->循环...
-//      按键监听->循环监听对应的指令(下落，平移等)
+//主线程   初始地图->绘制->(休眠一段时间)->执行下落->循环...
+//子线程   按键监听->循环监听对应的指令(下落，平移等)
 int main()
 {
-    //随机数发生器初始化
-    srand(time(NULL));
-    pthread_t pid1; //需要一个线程id
-    //启动按键事件线程监听按键
-    pthread_create(&pid1, NULL, event, NULL);
-    tetromino_next = get_tetromino();
-    tetromino_first = get_tetromino();
-    printf("\e[?25l\e[2J");
+    srand(time(NULL)); //随机数发生器初始化
+    pthread_t pid1; //线程id
+    pthread_create(&pid1, NULL, event, NULL); //启动按键事件线程监听按键
+    tetromino_next = get_tetromino(); //生成当前方块
+    tetromino_first = get_tetromino(); //生成下个方块
+    printf("\e[?25l\e[2J"); //隐藏光标，清屏
     while (1) {
         draw_map();
         usleep(500000 - 80000 * level);
