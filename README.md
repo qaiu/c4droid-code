@@ -17,17 +17,10 @@ QQ群2：172725648
 长远来看，本仓库会持续更新，部分代码仍有待优化，内容会渐渐丰富，同时是分享一些简单好玩的东西
 目前来讲，因为工作原因，可能会鸽上一段时间，各位计算机专业的同学亦可以提交分享你们作品，多多益善，
 同时质量一定要好哦
-# 已包含
-- 俄罗斯方块
-- 扫雷
-- 数字拼图
-- 贪吃蛇
-- 2048
-- 五子棋
-- 数独
-- 函数计算器
-- [内存编辑器](https://github.com/qaiu/c4droid-code/tree/main/Tool/memedit)
-- [数百个算法示例](https://github.com/qaiu/c4droid-code/tree/main/Learn/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95)
+# 主要项目
+- [游戏区/命令行和SDL小游戏](https://github.com/qaiu/c4droid-code/tree/main/Game)
+- [内存编辑器/其他辅助工具/加密算法等等](https://github.com/qaiu/c4droid-code/tree/main/Tool/memedit)
+- [数百个算法示例/c4droid手册包含的代码等等](https://github.com/qaiu/c4droid-code/tree/main/Learn/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95)
 
 -----
 ![Screenshot_20200802005600345_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-00-56-00-345_com.n0n3m4.droida-5c420cfc3c3d4375b0042716b2d2f9f4.jpg)
