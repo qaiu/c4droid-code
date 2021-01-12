@@ -151,6 +151,8 @@ int C4S_ShowCursor( void )
 	printf("\x1B[?25h");
 	fflush(stdout);
 	
+	v_SetScreeninfoError( NULL );
+	
 	return 0;
 }
 
@@ -164,6 +166,8 @@ int C4S_HideCursor( void )
 	
 	printf("\x1B[?25l");
 	fflush(stdout);
+	
+	v_SetScreeninfoError( NULL );
 	
 	return 0;
 }
@@ -185,6 +189,8 @@ int C4S_MoveCursor( int x, int y )
 	printf("\x1B[%d;%dH", y, x);
 	fflush(stdout);
 	
+	v_SetScreeninfoError( NULL );
+	
 	return 0;
 }
 
@@ -198,6 +204,8 @@ int C4S_OpenInputEcho( void )
 	
 	terminal_echo( 1 );
 	
+	v_SetScreeninfoError( NULL );
+	
 	return 0;
 }
 
@@ -210,6 +218,8 @@ int C4S_CloseInputEcho( void )
 	}
 	
 	terminal_echo( 0 );
+	
+	v_SetScreeninfoError( NULL );
 	
 	return 0;
 }
@@ -231,6 +241,8 @@ int C4S_SetTextColor( int r, int g, int b )
 	printf("\x1B[38;2;%d", r * 36 + g * 6 + b );
 	fflush(stdout);
 	
+	v_SetScreeninfoError( NULL );
+	
 	return 0;
 }
 
@@ -251,6 +263,8 @@ int C4S_SetBackColor( int r, int g, int b )
 	printf("\x1B[48;2;%d", r * 36 + g * 6 + b );
 	fflush(stdout);
 	
+	v_SetScreeninfoError( NULL );
+	
 	return 0;
 }
 
@@ -265,6 +279,8 @@ int C4S_OpenTouchEcho( void )
 	printf("\x1B[?1000h");
 	fflush(stdout);
 	
+	v_SetScreeninfoError( NULL );
+	
 	return 0;
 }
 
@@ -278,6 +294,8 @@ int C4S_CloseTouchEcho( void )
 	
 	printf("\x1B[?1000l");
 	fflush(stdout);
+	
+	v_SetScreeninfoError( NULL );
 	
 	return 0;
 }
@@ -344,6 +362,8 @@ int C4S_Input( char* buf, int size, int ms, int mode )
 	
 	if ( flag_free )
 		free( buf );
+		
+	v_SetScreeninfoError( NULL );
 	
 	return todo_count;
 }
@@ -368,6 +388,8 @@ int C4S_ClearInput( void )
 	
 	free( str );
 	
+	v_SetScreeninfoError( NULL );
+	
 	return 0;
 }
 
@@ -384,6 +406,8 @@ int C4S_SplitSuite( const char* text, int size, C4S_Suite* suite )
 		v_SetScreeninfoError( "text参数不能为NULL且size不能小于0" );
 		return -1;
 	}
+	
+	v_SetScreeninfoError( NULL );
 	
 	if ( size < 6 )
 		return 0;
