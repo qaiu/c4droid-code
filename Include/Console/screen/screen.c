@@ -21,6 +21,7 @@ extern "C" {
  *  包含需要的头文件
  */
 #include <conio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <termios.h>
 #include <term.h>
@@ -99,6 +100,24 @@ int C4S_Quit( void )
 	signal( SIGWINCH, NULL );
 	
 	v_ScreeninfoUsable = 0;
+	v_SetScreeninfoError( NULL );
+	
+	return 0;
+}
+
+int C4S_Sleep( int ms )
+{
+	char strtime[ 32 ];
+	
+	if ( v_ScreeninfoUsable == 0 )
+	{
+		v_SetScreeninfoError( "未初始化" );
+		return -1;
+	}
+	
+	sprintf( strtime, "sleep %d.%d", ms / 1000, ms % 1000 );
+	system( strtime );
+	
 	v_SetScreeninfoError( NULL );
 	
 	return 0;

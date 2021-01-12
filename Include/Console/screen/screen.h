@@ -120,6 +120,15 @@ extern const char* C4S_GetError( void );
 
 
 /*
+ *  延时一段时间(毫秒)
+ *  注意:延时操作必须使用此函数，否则
+ *  延时失效
+ *  失败返回-1
+ */
+extern int C4S_Sleep( int ms );
+
+
+/*
  *  获取终端可视的宽和长(按字来算)
  *  失败返回-1
  */
