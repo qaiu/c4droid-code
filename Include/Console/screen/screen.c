@@ -321,7 +321,7 @@ int C4S_Input( char* buf, int size, int ms, int mode )
 	
 	if ( !buf )
 	{
-		if ( !( buf = malloc( sizeof ( char ) * size ) ) )
+		if ( !( buf = ( char* )malloc( sizeof ( char ) * size ) ) )
 		{
 			v_SetScreeninfoError( "strsize值太大，空间不足" );
 			return -1;
