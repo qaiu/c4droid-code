@@ -48,7 +48,7 @@
 
 | 控制台项目 | 版本 | 作者/来源 |
 | :------- | :---: | :-----: |
-[screeninfo.h](https://github.com/qaiu/c4droid-code/tree/main/Include/Console/screeninfo) | v1.0 | 白狼·圣狂 |
+[screen](https://github.com/qaiu/c4droid-code/tree/main/Include/Console/screen) | v2.0 | 白狼·圣狂 |
 
 ---
 
