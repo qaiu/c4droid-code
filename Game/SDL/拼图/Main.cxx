@@ -128,7 +128,7 @@ int main(int argc, char *args[])
 {
 	SDL_Event event;			// 定义一个事件变量
 	init();						// 启动，初始化
-	s = loadimg("background.jpg");
+	s = loadimg("resources/image/background.jpg");
 	// 加载自己使用的图片
 	draw();						// 画出初始的图
 	while (quit == false)

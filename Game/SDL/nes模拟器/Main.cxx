@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 	ROM_len = 0;
 	rom_file = NULL;
 	FILE *fp = NULL;
-	fp = fopen("resources/rom/nes.nes", "rb");
+	fp = fopen("nes.nes", "rb");
 	fseek(fp, 0, SEEK_END);
 	ROM_len = ftell(fp);
 	rewind(fp);

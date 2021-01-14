@@ -15,10 +15,10 @@ void M_Init(SDL_Window * uw, SDL_Renderer * ur) {
  /**********************/
   SDL_Surface *s = NULL;
   /**********************/
-  M_F = TTF_OpenFont("../../../Resources/Font/D2-coding.ttf", 100);
-  s = IMG_Load("mine/bblue.png");
+  M_F = TTF_OpenFont("../../../Resources/Font/05.ttf", 100);
+  s = IMG_Load("resources/image/bblue.png");
   M_t[3] = SDL_CreateTextureFromSurface(M_r, s);
-  s = IMG_Load("mine/bred.png");
+  s = IMG_Load("resources/image/bred.png");
   M_t[4] = SDL_CreateTextureFromSurface(M_r, s);
   SDL_FreeSurface(s);
 }

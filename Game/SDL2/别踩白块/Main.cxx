@@ -74,10 +74,10 @@ int GetBest(int i)
   FILE *fp;
   int size;
   i--;
-  fp=fopen("score_V2.1_.dat","rb+");
+  fp=fopen("resources/user/score_V2.1_.dat","rb+");
   if(fp==NULL)
   {
-    fp=fopen("score_V2.1_.dat","wb+");
+    fp=fopen("resources/user/score_V2.1_.dat","wb+");
     fwrite(score_best,sizeof(score_best),1,fp);
     fflush(fp);
   }
@@ -135,11 +135,11 @@ int Init()
   char s[50];
   for(int i=0;i<9;i++)
   {
-    sprintf(s,"s%d.wav",i);
+    sprintf(s,"resources/audio/s%d.wav",i);
     Sound[i]=Mix_LoadWAV(s);
   }
   //加载时间音效
-  Timelose=Mix_LoadMUS("timelose.wav");
+  Timelose=Mix_LoadMUS("resources/audio/timelose.wav");
   //设置渲染器颜色为白色
   SDL_SetRenderDrawColor(Renderer,0xff,0xff,0xff,0xff);
 }
@@ -199,7 +199,7 @@ SDL_Texture *Text(char *Fonts,int fontsize,int r,int g,int b)
     size=fontsize;
     if(size)
       TTF_CloseFont(library);
-    library=TTF_OpenFont("../../../Resources/Font/D2-coding.ttf",size*W/480);
+    library=TTF_OpenFont("../../../Resources/Font/05.ttf",size*W/480);
   }
   temp=TTF_RenderUTF8_Blended(library,Fonts,color);
   SDL_Texture *fonts=NULL;
@@ -473,7 +473,7 @@ void chan()
   //打开音乐文件
   if(Volume)
   {
-    sprintf(s_fp,"music_%d.txt",rand()%5+1);
+    sprintf(s_fp,"resources/config/music_%d.txt",rand()%5+1);
     fp=fopen(s_fp,"r");
   }
   //初始化
@@ -561,7 +561,7 @@ void chan()
         if(Volume&&feof(fp))
         {
           fclose(fp);
-                    sprintf(s_fp,"music_%d.txt",rand()%5+1);
+                    sprintf(s_fp,"resources/config/music_%d.txt",rand()%5+1);
           fp=fopen(s_fp,"r");
         }
         coor[3].type=0;
@@ -596,7 +596,7 @@ void jieji()
   jieji_star:
   if(Volume)
   {
-    sprintf(s_fp,"music_%d.txt",rand(
+    sprintf(s_fp,"resources/config/music_%d.txt",rand(
   )%5+1);
     fp=fopen(s_fp,"r");
   }
@@ -672,7 +672,7 @@ void jieji()
           if(feof(fp))
           {
             fclose(fp);
-                      sprintf(s_fp,"music_%d.txt",rand()%5+1);
+                      sprintf(s_fp,"resources/config/music_%d.txt",rand()%5+1);
             fp=fopen(s_fp,"r");
           }
           fscanf(fp,"%d",&i);
@@ -705,7 +705,7 @@ char *getname()
 {
   FILE *fp;
   static char name[25]="\0";
-  if(fp=fopen("name.dat","r"))
+  if(fp=fopen("resources/user/name.dat","r"))
   {
     int i;
     memset(name,0,sizeof(name));
@@ -774,7 +774,7 @@ text=Text("输入你的昵称:",50,0,0,0);
     SDL_RenderPresent(Renderer);
   }
   SDL_StopTextInput();
-  fp=fopen("name.dat","w");
+  fp=fopen("resources/user/name.dat","w");
   fprintf(fp,"%s",name);
   fclose(fp);
   effect(-1);
@@ -1154,9 +1154,9 @@ void menu()
   SDL_Event event;
   FILE *fp;
   //获取声音状态
-  if((fp=fopen("volume.dat","rb+"))==NULL)
+  if((fp=fopen("resources/user/volume.dat","rb+"))==NULL)
   {
-    fp=fopen("volume.dat","wb+");
+    fp=fopen("resources/user/volume.dat","wb+");
     fwrite(&Volume,sizeof(bool),1,fp);
     fflush(fp);
   }

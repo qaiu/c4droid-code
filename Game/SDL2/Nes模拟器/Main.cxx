@@ -20,7 +20,7 @@
 ///////////////////////////////
 //       Nes游戏卡带路径       //
 ///////////////////////////////
-#define NESNAME "resources/rom/马戏团.nes"
+#define NESNAME "resources/rom/超级玛丽.nes"
 
 
 #define SDLglue_Surface SDL_Surface
@@ -422,4 +422,4 @@ void SDLglue_HookButton(const SDL_Event* event)
 	SDL_PushEvent(&sevent);
 }
 
-#include "mynes.c"
+#include "mynes.cxx"

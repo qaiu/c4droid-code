@@ -51,33 +51,33 @@ SDL_Surface *load_image(char *filename){
 
 
 void load_files(void){
-	Map[0].background=load_image("gfx/background_night.png");
-	Map[0].ground=load_image("gfx/ground.png");
-	Map[0].pipe_top=load_image("gfx/pipe1_1.png");
-	Map[0].pipe_bottom=load_image("gfx/pipe1_2.png");
-	Map[1].background=load_image("gfx/background_day.png");
-	Map[1].ground=load_image("gfx/ground.png");
-	Map[1].pipe_top=load_image("gfx/pipe2_1.png");
-	Map[1].pipe_bottom=load_image("gfx/pipe2_2.png");
+	Map[0].background=load_image("resources/image/background_night.png");
+	Map[0].ground=load_image("resources/image/ground.png");
+	Map[0].pipe_top=load_image("resources/image/pipe1_1.png");
+	Map[0].pipe_bottom=load_image("resources/image/pipe1_2.png");
+	Map[1].background=load_image("resources/image/background_day.png");
+	Map[1].ground=load_image("resources/image/ground.png");
+	Map[1].pipe_top=load_image("resources/image/pipe2_1.png");
+	Map[1].pipe_bottom=load_image("resources/image/pipe2_2.png");
 	 
-	Bird[0].first=load_image("gfx/bird1_1.png");
-	Bird[0].second=load_image("gfx/bird1_2.png");
-	Bird[0].third=load_image("gfx/bird1_3.png");
-	Bird[1].first=load_image("gfx/bird2_1.png");
-	Bird[1].second=load_image("gfx/bird2_2.png");
-	Bird[1].third=load_image("gfx/bird2_3.png");
-	Bird[2].first=load_image("gfx/bird3_1.png");
-	Bird[2].second=load_image("gfx/bird3_2.png");
-	Bird[2].third=load_image("gfx/bird3_3.png");
+	Bird[0].first=load_image("resources/image/bird1_1.png");
+	Bird[0].second=load_image("resources/image/bird1_2.png");
+	Bird[0].third=load_image("resources/image/bird1_3.png");
+	Bird[1].first=load_image("resources/image/bird2_1.png");
+	Bird[1].second=load_image("resources/image/bird2_2.png");
+	Bird[1].third=load_image("resources/image/bird2_3.png");
+	Bird[2].first=load_image("resources/image/bird3_1.png");
+	Bird[2].second=load_image("resources/image/bird3_2.png");
+	Bird[2].third=load_image("resources/image/bird3_3.png");
 
-	Ui.caption=load_image("gfx/caption.png");
-	Ui.messagebox=load_image("gfx/messagebox.png");
-	Ui.button_start=load_image("gfx/button_start.png");
+	Ui.caption=load_image("resources/image/caption.png");
+	Ui.messagebox=load_image("resources/image/messagebox.png");
+	Ui.button_start=load_image("resources/image/button_start.png");
 	
-	music=Mix_LoadMUS("sounds/music.mp3");
-	Sound.point=Mix_LoadWAV("sounds/sfx_point.ogg");
-	Sound.hit=Mix_LoadWAV("sounds/sfx_hit.ogg");
-	Sound.wing=Mix_LoadWAV("sounds/sfx_wing.ogg");
+	music=Mix_LoadMUS("resources/audio/music.mp3");
+	Sound.point=Mix_LoadWAV("resources/audio/sfx_point.ogg");
+	Sound.hit=Mix_LoadWAV("resources/audio/sfx_hit.ogg");
+	Sound.wing=Mix_LoadWAV("resources/audio/sfx_wing.ogg");
 	
 	textfont=TTF_OpenFont("../../../Resources/Font/D2-coding.ttf",30);
 }

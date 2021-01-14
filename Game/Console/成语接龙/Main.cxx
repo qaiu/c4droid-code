@@ -39,7 +39,7 @@ int main()
 	puts("成语接龙:不会的可以输入问号(中文？)跳过,请输入一个成语");
 	scanf("%s",s);
 	do {	
-	FILE *fp=fopen("data4.txt","r");
+	FILE *fp=fopen("resources/config/data4.txt","r");
 	while(!flag&&fgets(buf0,1024,fp))
 	{
 		char temp[64]={};
@@ -66,7 +66,7 @@ int main()
 		printf(">>>查无此成语，你输了！\n");
 		return 0;
 	}
-	fp=fopen("data4.txt","r");
+	fp=fopen("resources/config/data4.txt","r");
 	sum=0;
 	while(fgets(buf0,1024,fp))
 	{

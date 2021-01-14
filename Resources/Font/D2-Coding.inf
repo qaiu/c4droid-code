@@ -1,0 +1,6 @@
+# Import
+[Game/SDL2/简易计算器]
+	+ Main.cxx
+
+# BUG
+[SDL2] 中文支持不完整

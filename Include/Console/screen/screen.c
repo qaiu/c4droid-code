@@ -47,6 +47,7 @@ static void v_ScreeninfoSigFunc( int signo )
 		v_SignalCallBack( ws.ws_col, ws.ws_row );
 }
 
+
 static void v_SetScreeninfoError( const char *aMessage )
 {
 	v_ScreeninfoErrMsg = aMessage;

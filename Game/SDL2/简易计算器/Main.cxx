@@ -1,5 +1,7 @@
 //c4droid代码手册
+//简易计算器[v1.1]
 //请赐教摩羯 编写
+//白狼·圣狂 修改
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_ttf.h"
@@ -23,7 +25,7 @@ SDL_Event e;
 
 TTF_Font *font[3] = { NULL };
 
-char *pic = "picture/cbg.png",*ttf = "../../../Resources/Font/D2-coding.ttf";          /*
+char *pic = "resources/image/cbg.png",*ttf = "../../../Resources/Font/D2-coding.ttf";          /*
 所应用文件的相对路径*/
 char way[2][100];          /*
 存储路径 */
@@ -63,7 +65,7 @@ int main(int argc, char *argv[])
 
 	while (quit == false)
 	{
-		if (SDL_PollEvent(&e))
+		while (SDL_PollEvent(&e))
 		{
 			switch (e.type)
 			{

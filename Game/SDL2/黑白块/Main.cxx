@@ -1,5 +1,5 @@
 /*
- *  项目:     黑白块(Black-White)
+ *  项目:     黑白块(Black-White)[v1.0]
  *  创建时间:  2020-8-29
  *  作者:     白狼·圣狂
  *
@@ -543,14 +543,14 @@ void Init()
 	SDL_RenderClear(render);
 	SDL_RenderPresent(render);
 	
-	if (!(font = TTF_OpenFont("../../../Resources/Font/D2-coding.ttf", FONT_SIZE)))
+	if (!(font = TTF_OpenFont("../../../Resources/Font/05.ttf", FONT_SIZE)))
 		if (!(font = TTF_OpenFont("/system/fonts/DroidSans.ttf", FONT_SIZE)))
 			exit(EXIT_FAILURE);
 	
 	
 	
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
-	ment_music = Mix_LoadMUS("resources/Menu.mp3");
+	ment_music = Mix_LoadMUS("resources/audio/Menu.mp3");
 	Mix_VolumeMusic(0);
 	ment_volume = 0.0;
 	
@@ -1401,7 +1401,7 @@ void FlashLost()
 void ReadBast()
 {
 	int num, make;
-	FILE* fp = fopen("system.dat", "r");
+	FILE* fp = fopen("resources/user/score.dat", "r");
 	
 	if (!fp)
 	{
@@ -1421,14 +1421,14 @@ void ReadBast()
 	{
 		game_bast = 0;
 		fclose(fp);
-		remove("system.dat");
+		remove("resources/user/score.dat");
 	}
 }
 
 void WriteBast()
 {
 	int num, make;
-	FILE* fp = fopen("system.dat", "w");
+	FILE* fp = fopen("resources/user/score.dat", "w");
 	
 	if (!fp)
 		return;

@@ -1,5 +1,5 @@
 /*c4droid代码手册
-消灭星星
+消灭星星[v5.3]
 亅小夕ve 编写
 */
 #include <SDL2/SDL.h>
@@ -7,7 +7,7 @@
 #include <SDL2/SDL_image.h>
 #include<stdlib.h>
 #include<time.h>
-#include "mine/butt2.h"
+#include "butt2.hxx"
 int aH, BOX = 90, map[10][10], H = 9, W = 8, wH, wW;
 int Kinds = 3, clean, score, sBest, sAdd;
 
@@ -368,7 +368,7 @@ void over() {
 }
 /* ￭￭￭￭￭￭￭￭￭￭￭￭￭￭￭ */
 void scoreSave(int a) {
-  FILE *fp = fopen("/sdcard/xmxx.score", "w+");
+  FILE *fp = fopen("resources/user/xmxx.score", "w+");
   int b = 0, i;
   long j = 1;
   char sc;
@@ -393,8 +393,8 @@ int scoreGet() {
   char c;
   FILE *fp = NULL;
 
-  if ((fp = fopen("/sdcard/xmxx.score", "r+")) == NULL) {
-     fp = fopen("/sdcard/xmxx.score", "w+");
+  if ((fp = fopen("resources/user/xmxx.score", "r+")) == NULL) {
+     fp = fopen("resources/user/xmxx.score", "w+");
     scoreSave(0);
   }
   while ((c = fgetc(fp)) != 'a') {
@@ -413,11 +413,11 @@ int scoreGet() {
 }
 /* ￭￭￭￭￭￭￭￭￭￭￭￭￭￭￭ */
 void begin() {
-  s = IMG_Load("a0.png");
+  s = IMG_Load("resources/image/a0.png");
   blocks = SDL_CreateTextureFromSurface(r, s);
-  s = IMG_Load("a1.jpg");
+  s = IMG_Load("resources/image/a1.jpg");
   t[0] = SDL_CreateTextureFromSurface(r, s);
-  s = IMG_Load("a2.jpg");
+  s = IMG_Load("resources/image/a2.jpg");
   t[1] = SDL_CreateTextureFromSurface(r, s);
 
   SDL_GetWindowSize(w, &wW, &wH);
@@ -432,7 +432,7 @@ void SDL_star() {
   srand(time(0));
   w = SDL_CreateWindow("game", 0, 0, 0, 0, 0);
   r = SDL_CreateRenderer(w, -1, SDL_RENDERER_ACCELERATED);
-  font = TTF_OpenFont("../../../Resources/Font/D2-coding.ttf", 50);
+  font = TTF_OpenFont("../../../Resources/Font/05.ttf", 50);
 }
 void SDL_end() {
   SDL_RenderClear(r);
