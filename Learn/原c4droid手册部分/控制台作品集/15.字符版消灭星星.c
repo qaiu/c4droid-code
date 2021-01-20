@@ -81,69 +81,69 @@ int draw()
 	if(i==1)//第一行的输出
 	{
 	printf("\033[40;36m消灭星星    \033[0m");
-	printf("◆");
+	printf("＊");
 	}
 	else if(i==2)//第二行的输出
 	{
 		if(gover()==0)
 		{
-		printf("            ◆");
+		printf("            ＊");
 		}
 		else
 		{
-		printf("分数：      ◆");
+		printf("分数：      ＊");
 		}
 	}
 	else if(i==3)//第三行的输出
 	{
 		if(gover()==0)
 		{
-		printf("Game over!  ◆",score);
+		printf("Game over!  ＊",score);
 		}
 		else
 		{
-		printf(" %-10d ◆",score);
+		printf(" %-10d ＊",score);
 		}
 	}
 	else if(i==4)//第四行的输出
 	{
 		if(gover()==0)
 		{
-		printf("总分:%-7d◆",score);
+		printf("总分:%-7d＊",score);
 		}
 		else
 		{
 		if(sp==4)
 		{
-		printf("消灭四颗星  ◆");
+		printf("消灭四颗星  ＊");
 		}
 		else if(sp==5)
 		{
-		printf("消灭五颗星  ◆");
+		printf("消灭五颗星  ＊");
 		}
 		else if(sp==6)
 		{
-		printf("消灭六颗星  ◆");
+		printf("消灭六颗星  ＊");
 		}
 		else if(sp==7)
 		{
-		printf("消灭七颗星  ◆");
+		printf("消灭七颗星  ＊");
 		}
 		else if(sp==8)
 		{
-		printf("消灭八颗星  ◆");
+		printf("消灭八颗星  ＊");
 		}
 		else if(sp==9)
 		{
-		printf("消灭九颗星  ◆");
+		printf("消灭九颗星  ＊");
 		}
 		else if(sp>=10)
 		{
-		printf("超神!!!!!!!!◆");
+		printf("超神!!!!!!!!＊");
 		}
 		else
 		{
-		printf("            ◆");
+		printf("            ＊");
 		}
 	}
 	}
@@ -151,41 +151,41 @@ int draw()
 	{
 		if(gover()==0)
 		{
-		printf("            ◆",score);
+		printf("            ＊",score);
 		}
 		else
 		{
 		if(sp==4)
 		{
-		printf("得到六分    ◆");
+		printf("得到六分    ＊");
 		}
 		else if(sp==5)
 		{
-		printf("得到十分    ◆");
+		printf("得到十分    ＊");
 		}
 		else if(sp==6)
 		{
-		printf("得到十五分  ◆");
+		printf("得到十五分  ＊");
 		}
 		else if(sp==7)
 		{
-		printf("得到二十一分◆");
+		printf("得到二十一分＊");
 		}
 		else if(sp==8)
 		{
-		printf("得到二十八分◆");
+		printf("得到二十八分＊");
 		}
 		else if(sp==9)
 		{
-		printf("得到三十六分◆");
+		printf("得到三十六分＊");
 		}
 		else if(sp>=10)
 		{
-		printf("超越神的杀戮◆");
+		printf("超越神的杀戮＊");
 		}
 		else
 		{
-		printf("            ◆");
+		printf("            ＊");
 		}
 	}
 	}
@@ -193,16 +193,16 @@ int draw()
 	{
 		if(gover()==0)
 		{
-		printf("回车重新开始◆",score);
+		printf("回车重新开始＊",score);
 		}
 		else
 		{
-		printf("            ◆");
+		printf("            ＊");
 		}
 	}
 	else 
 	{
-	printf("            ◆");
+	printf("            ＊");
 	}
 	
 	
@@ -227,27 +227,27 @@ int draw()
 /***************3屏幕右侧******************/
 	if(i==1)//第一行的输出
 	{
-	printf("◆ * 操作提示 *\n");
+	printf("＊ * 操作提示 *\n");
 	}
 	else if(i==2)//第二行的输出
 	{
-	printf("◆  使用2,4,6,\n");
+	printf("＊  使用2,4,6,\n");
 	}
 	else if(i==3)//第三行的输出
 	{
-	printf("◆  8控制光标。\n");
+	printf("＊  8控制光标。\n");
 	}
 	else if(i==4)//第四行的输出
 	{
-	printf("◆  使用5消除\n");
+	printf("＊  使用5消除\n");
 	}
 	else if(i==5)//第五行的输出
 	{
-	printf("◆  方块。\n");
+	printf("＊  方块。\n");
 	}
 	else 
 	{
-	printf("◆\n");
+	printf("＊\n");
 	}
 	}
 	sp=0;

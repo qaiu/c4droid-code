@@ -18,7 +18,6 @@
 #include <fcntl.h>
 #define H 21 //地图行大小
 #define W 16 //列
-#define TETROMINO_SIZE 4
 
 typedef struct { //方块结构体
     int x[4][4], y[4][4], type;
@@ -26,7 +25,7 @@ typedef struct { //方块结构体
 TETROMINO tetromino_first, tetromino_next;
 
 //方块x轴的坐标，用全局变量保存，获取对应的方块时通过下标获取
-const int coord_x[7][2][TETROMINO_SIZE] = {
+const int coord_x[7][2][4] = {
     {0, 5, 0, 0, 4, 5, 6, 0}, //T
     {0, 0, 0, 0, 4, 5, 6, 7}, //I
     {4, 5, 0, 0, 4, 5, 0, 0}, //O
@@ -36,7 +35,7 @@ const int coord_x[7][2][TETROMINO_SIZE] = {
     {0, 0, 6, 0, 4, 5, 6, 0}, //L
 };
 //y轴坐标
-const int coord_y[7][2][TETROMINO_SIZE] = {
+const int coord_y[7][2][4] = {
     {0, 1, 0, 0, 2, 2, 2, 0},
     {0, 0, 0, 0, 2, 2, 2, 2},
     {1, 1, 0, 0, 2, 2, 0, 0},
@@ -75,8 +74,8 @@ void init_map(void)
                 map[i][j] = 0;
         }
     }
-    for (int i = 0; i < TETROMINO_SIZE; i++) {
-        for (int j = 0; j < TETROMINO_SIZE; j++) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
             if (tetromino_first.y[i][j] != 0)
                 map[tetromino_first.y[i][j]][tetromino_first.x[i][j]] = 1;
             if (tetromino_next.y[i][j] != 0)
@@ -158,8 +157,8 @@ void judge(int high)
 //判断方块是否落到底部
 int can_down_move(TETROMINO tet)
 {
-    for (int i = 0; i < TETROMINO_SIZE; i++) {
-        for (int j = 0; j < TETROMINO_SIZE; j++) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
             if (tet.y[i][j] != 0 && map[tet.y[i][j] + 1][tet.x[i][j]] > 1) {
                 return 1;
             }
@@ -172,8 +171,8 @@ int can_down_move(TETROMINO tet)
 void horizontal_move(int direction)
 {
     TETROMINO tetromino_temp = tetromino_first;
-    for (int i = 0; i < TETROMINO_SIZE; i++) {
-        for (int j = 0; j < TETROMINO_SIZE; j++) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
             if (tetromino_temp.y[i][j] != 0) {
                 if (map[tetromino_temp.y[i][j]][tetromino_temp.x[i][j] + direction] > 1)
                     return;
@@ -191,7 +190,7 @@ void rotate()
 {
     if (tetromino_first.type == 2) //田字方块不旋转
         return;
-    int flag = 0, size = tetromino_first.type == 1 ? TETROMINO_SIZE : TETROMINO_SIZE - 1;
+    int flag = 0, size = tetromino_first.type == 1 ? 4 : 4 - 1;
     TETROMINO tetromino_temp = {.type = tetromino_first.type };
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
@@ -212,8 +211,8 @@ void down_move()
 {
     //如果可以下落，让方块y轴依次加一
     if (!down_bottom_flag) {
-        for (int i = 0; i < TETROMINO_SIZE; i++) {
-            for (int j = 0; j < TETROMINO_SIZE; j++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 if (map[tetromino_first.y[i][j]][tetromino_first.x[i][j]] < 2)
                     tetromino_first.y[i][j]++;
             }
@@ -223,8 +222,8 @@ void down_move()
     }
     //遍历获取下落后垒起来的高度，判断游戏最多能消几行
     int high;
-    for (int i = 0; i < TETROMINO_SIZE; i++) {
-        for (int j = 0; j < TETROMINO_SIZE; j++) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
             if (tetromino_first.y[i][j] != 0) {
                 map[tetromino_first.y[i][j]][tetromino_first.x[i][j]] = tetromino_first.type + 4;
                 high = tetromino_first.y[i][j];

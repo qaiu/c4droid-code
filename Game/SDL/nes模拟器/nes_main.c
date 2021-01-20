@@ -44,7 +44,7 @@ void NEStimer(int32 data)
 				NES_GetSpr0HitFlag(PPU_scanline - SCAN_LINE_DISPALY_START_NUM);
 			}
 		}
-		// if (FrameCnt % 2 == 0)
+		//if (FrameCnt % 2 == 0)
 		{
 			// 每3帧显示一次
 			// 耗时大户

@@ -10,6 +10,8 @@
 
 + **Console控制台** - 存放在Console文件夹下
 
++ **Allegro图形库** - 存放在Allegro文件夹下
+
 + **SDL1.x** - 存放在SDL文件夹下
 
 + **SDL2.x** - 存放在SDL2文件夹下
@@ -48,6 +50,7 @@
 | [拼图](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL/拼图) | v1.0 | TTHHR |
 | [Flappy Bird](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL/flappybird) | v3.0 | 木影随风 |
 | [Nes模拟器](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL/nes模拟器) | V1.1 | LOTOOHE |
+| [扫雷](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL/扫雷)|v1.0|LOTOOHE|
 
 ---
 
