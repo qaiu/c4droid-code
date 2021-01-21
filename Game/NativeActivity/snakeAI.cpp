@@ -1,5 +1,5 @@
 // 半成品，来源：c4droid吧某大神
-// 运行报错，请修改nativeActivity参数，添加 -lGLESv3(注意和稍后参数之前有空格)
+// 运行报错，请修改nativeActivity参数，添加 -lGLESv3(注意参数前后空格)
 
 #include <jni.h>
 #include <errno.h>
