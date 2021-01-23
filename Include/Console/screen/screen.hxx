@@ -1,5 +1,5 @@
 /*
- *  screen.h[v2.0]
+ *  screen.hxx[v2.0]
  *  获取终端屏幕的信息
  *  by 白狼·圣狂
  */
@@ -96,7 +96,7 @@ typedef union C4S_SUITE
 /*
  *  包含需要的头文件
  */
-#include "screen.c"
+#include "screen.cxx"
 
 
 /*

@@ -93,7 +93,7 @@
 #define COLOR_BLUE 0,150,250,255
 #define COLOR_GRAY 235,235,235,255
 #define COLOR_YELLOW 255,200,0,255
-#define COLOR_ORANGE 255,180,0,255
+#define COLOR_ORANGE 255,100,0,255
 
 /*
  *  布局状态，控制显示的场景:
@@ -1272,12 +1272,12 @@ void ShowCount()
 	if (game_count > game_bast)
 	{
 		box.h = windowy / 8;
-		face = TTF_RenderUTF8_Blended(font, str, {COLOR_RED});
+		face = TTF_RenderUTF8_Blended(font, str, {COLOR_GREEN});
 	}
 	else
 	{
 		box.h = windowy / 9;
-		face = TTF_RenderUTF8_Blended(font, str, {COLOR_GREEN});	
+		face = TTF_RenderUTF8_Blended(font, str, {COLOR_ORANGE});	
 	}
 		
 	text = SDL_CreateTextureFromSurface(render, face);

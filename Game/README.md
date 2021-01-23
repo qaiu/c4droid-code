@@ -12,6 +12,8 @@
 
 + **Allegro图形库** - 存放在Allegro文件夹下
 
++ **NativeActivity** - 存放在NDK文件夹下
+
 + **SDL1.x** - 存放在SDL文件夹下
 
 + **SDL2.x** - 存放在SDL2文件夹下
@@ -63,6 +65,13 @@
 | [消灭星星](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/消灭星星) | v5.3 | j小夕ve |
 | [影分身](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/影分身游戏) | v1.0 | dd7262000 |
 | [Nes模拟器](https://github.com/qaiu/c4droid-code/tree/main/Game/SDL2/Nes模拟器) | v1.1 | LOTOOHE&#10;白狼·圣狂 |
+
+---
+
+| NDK项目 | 版本 | 作者/来源 |
+| :----- | :---: | :-----: |
+| [SnakeAI](https://github.com/qaiu/c4droid-code/tree/main/Game/NDK/SnakeAI) | v1.0 | c4droid贴吧某大神
+ |
 
 ---
 

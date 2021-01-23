@@ -26,7 +26,7 @@ extern "C" {
 #include <termios.h>
 #include <term.h>
 
-#include "screen.h"
+#include "screen.hxx"
 
 /*
  *  私有变量，不建议外部程序使用
@@ -207,7 +207,6 @@ int C4S_MoveCursor( int x, int y )
 	}
 	
 	printf("\x1B[%d;%dH", y, x);
-	fflush(stdout);
 	
 	v_SetScreeninfoError( NULL );
 	
@@ -259,7 +258,6 @@ int C4S_SetTextColor( int r, int g, int b )
 	}
 	
 	printf("\x1B[38;2;%d", r * 36 + g * 6 + b );
-	fflush(stdout);
 	
 	v_SetScreeninfoError( NULL );
 	
@@ -281,7 +279,6 @@ int C4S_SetBackColor( int r, int g, int b )
 	}
 	
 	printf("\x1B[48;2;%d", r * 36 + g * 6 + b );
-	fflush(stdout);
 	
 	v_SetScreeninfoError( NULL );
 	

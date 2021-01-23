@@ -36,6 +36,7 @@
 
 | 通用库项目 | 版本 | 作者/来源 |
 | :-------- | :---: | :------: |
+| [midi](https://github.com/qaiu/c4droid-code/tree/main/Include)      | v1.0  | 白狼·圣狂 |
 
 ---
 
