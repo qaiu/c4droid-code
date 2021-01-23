@@ -13,7 +13,10 @@ extern "C" {
 
 #include "midi.h"
 
-#define GETAUTOLEN(x)((1 + (((x >> 7) & 0x7F) ? 1 : 0) + (((x >> 14) & 0x7F) ? 1 : 0) + (((x >> 21) & 0x7F) ? 1 : 0)))
+static int _ANS_GetAutoLen(int x)
+{
+	return ((1 + (((x >> 7) & 0x7F) ? 1 : 0) + (((x >> 14) & 0x7F) ? 1 : 0) + (((x >> 21) & 0x7F) ? 1 : 0)));
+}
 
 static long _ANS_GetFileSurplus(FILE* fp)
 {
@@ -155,49 +158,57 @@ static int _ANS_GetMidChunkCount(FILE* fpmid, int isize)
 	{
 		last = byte;
 		
-		tmp = GETAUTOLEN(_ANS_GetMidAutoByte(fpmid)) + 1;
+		isize -= _ANS_GetAutoLen(_ANS_GetMidAutoByte(fpmid));
 		_ANS_GetFileBigByte(fpmid, &byte, 1);
-		tmp++;
+		isize--;
 		
 		switch (byte & 0xF0)
 		{
 			case 0xC0:
 			case 0xD0:
 				fseek(fpmid, 1L, SEEK_CUR);
-				tmp++;
+				isize--;
 				break;
 			
 			case 0x80:
 				count++;
 				fseek(fpmid, 2L, SEEK_CUR);
-				tmp += 2;
+				isize -= 2;
 				break;
 			
 			case 0x90:
 				count++;
 				fseek(fpmid, 2L, SEEK_CUR);
-				tmp += 2;
+				isize -= 2;
 				break;
 			
 			case 0xA0:
 			case 0xB0:
 				fseek(fpmid, 2L, SEEK_CUR);
-				tmp += 2;
+				isize -= 2;
 				break;
 			
 			case 0xF0:
 				if (byte == 0xFF)
 				{
 					fseek(fpmid, 1L, SEEK_CUR);
-					isize -= tmp + 1;
+					isize--;
+					
 					fseek(fpmid, (long )(tmp = _ANS_GetMidAutoByte(fpmid)), SEEK_CUR);
-					tmp = GETAUTOLEN(tmp) + 1;
+					 isize -= tmp + 1;
 				}
 				else if (byte == 0xF0)
 				{
-					isize -= tmp;
-					fseek(fpmid, (long )((tmp = _ANS_GetMidAutoByte(fpmid)) + 1), SEEK_CUR);
-					tmp = GETAUTOLEN(tmp) + 2;
+					fseek(fpmid, (long )(tmp = _ANS_GetMidAutoByte(fpmid)), SEEK_CUR);
+					isize -= tmp + 1;
+					
+					fseek(fpmid, 1L, SEEK_CUR);
+					isize--;
+				}
+				else if (byte == 0xF7)
+				{
+					fseek(fpmid, (long )(tmp = _ANS_GetMidAutoByte(fpmid)), SEEK_CUR);
+					isize -= tmp + 1;
 				}
 				else
 				{
@@ -210,15 +221,13 @@ static int _ANS_GetMidChunkCount(FILE* fpmid, int isize)
 				byte = last;
 				continue;
 		}
-		
-		isize -= tmp;
 	}
 	
 	fseek(fpmid, offset, SEEK_SET);
 	return count;
 }
 
-// TODO
+
 static int _ANS_GetMidChunk(FILE* fpmid, ANS_MidChunk* chunk, int count)
 {
 	long offset;
@@ -226,14 +235,14 @@ static int _ANS_GetMidChunk(FILE* fpmid, ANS_MidChunk* chunk, int count)
 	uint8_t last;
 	uint8_t byte;
 	
-	int i;
+	int i = 0;
 	
 	if (!(fpmid && chunk && count > 0))
 		return ANS_MIDI_ARGSERR;
 	
 	offset = ftell(fpmid);
 	
-	for (i = 0; i < count; i++)
+	while (i < count)
 	{
 		last = byte;
 		
@@ -246,43 +255,47 @@ static int _ANS_GetMidChunk(FILE* fpmid, ANS_MidChunk* chunk, int count)
 			case 0xC0:
 			case 0xD0:
 				fseek(fpmid, 1L, SEEK_CUR);
-				i--;
 				break;
 			
 			case 0x80:
 				chunk[i].action = ANS_MIDI_ACTION_PRESSED;
 				_ANS_GetFileBigByte(fpmid, &chunk[i].musicnote, 1);
 				fseek(fpmid, 1L, SEEK_CUR);
+				i++;
 				break;
 			
 			case 0x90:
 				chunk[i].action = ANS_MIDI_ACTION_RELEASED;
 				_ANS_GetFileBigByte(fpmid, &chunk[i].musicnote, 1);
 				fseek(fpmid, 1L, SEEK_CUR);
+				i++;
 				break;
 			
 			case 0xA0:
 			case 0xB0:
 				fseek(fpmid, 2L, SEEK_CUR);
-				i--;
 				break;
 			
 			case 0xF0:
 				if (byte == 0xFF)
 				{
-					fseek(fpmid, 1L, SEEK_CUR);
-					fseek(fpmid, (long ) _ANS_GetMidAutoByte(fpmid), SEEK_CUR);
+					fseek(fpmid, 1L, SEEK_CUR);					
+					fseek(fpmid, (long )_ANS_GetMidAutoByte(fpmid), SEEK_CUR);
 				}
 				else if (byte == 0xF0)
 				{
-					fseek(fpmid, (long )( _ANS_GetMidAutoByte(fpmid) + 1), SEEK_CUR);
+					fseek(fpmid, (long )_ANS_GetMidAutoByte(fpmid), SEEK_CUR);	
+					fseek(fpmid, 1L, SEEK_CUR);
+				}
+				else if (byte == 0xF7)
+				{
+					fseek(fpmid, (long )_ANS_GetMidAutoByte(fpmid), SEEK_CUR);
 				}
 				else
 				{
 					fseek(fpmid, offset, SEEK_SET);
 					return count;
 				}
-				i--;
 				break;
 			
 			default:
