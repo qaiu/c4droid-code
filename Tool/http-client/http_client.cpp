@@ -1,7 +1,10 @@
 /**
- * HttpClient v1.0
- * QAIU
+ * HttpClient v1.1
+ * @QAIU
  */
+ 
+#ifndef HTTP_CLIENT_H
+#define HTTP_CLIENT_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,7 +17,7 @@
 #include <ctype.h>
 
 #define ERROR_EXIT 0
-//#include "errmacros.h"
+
 #define ERROR_PRINT(...) 							                     \
 		do {					  					                     \
 		  printf("\e[31;1m%s\n已退出,错误码%d\e[0m",__VA_ARGS__);                           \
@@ -30,6 +33,7 @@
     "Accept: */*\r\n" \
     "Content-Type: application/x-www-form-urlencoded\r\n" \
     "Content-Length: %d\r\n" \
+    "User-Agent: Mozilla/5.0 (Linux; Android 8.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Mobile Safari/537.36\r\n" \
     "\r\n" \
     "%s" 
 
@@ -37,7 +41,7 @@
     "GET %s HTTP/1.1\r\n" \
     "HOST: %s:%d\r\n" \
     "Accept: */*\r\n" \
-    "User-Agent: Mozilla/4.0(compatible)\r\n" \
+    "User-Agent: Mozilla/5.0 (Linux; Android 8.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Mobile Safari/537.36\r\n" \
     "connection:Keep-Alive\r\n" \
     "\r\n"
 
@@ -86,7 +90,7 @@ int create_connect(const char *host,int port) {
 	{
 		ERROR_PRINT("Error opening socket!\n");
 	}
-	if (connect(socket_fd, (const sockaddr *)&pin, sizeof(pin)) == -1)
+	if (connect(socket_fd, (const struct sockaddr *)&pin, sizeof(pin)) == -1)
 	{
 		ERROR_PRINT("Error connecting to socket\n");
 	}
@@ -138,8 +142,8 @@ int http_send(int socket_fd, PREQ_INFO req, const char*post_params, int type)
 	case POST:
 	case PUT:
 	case DELETE:	
-		sprintf(message,HTTP_GET_HEADER,req->path,req->host,req->port,strlen(post_params),post_params);
-		break;				
+		sprintf(message,HTTP_POST_HEADER,req->path,req->host,req->port,strlen(post_params),post_params);
+		break;
 	}
 	
 	//发送http请求
@@ -187,7 +191,7 @@ char *http_receive_response_header(int socket_fd)
 
 char *http_receive_response_body(int socket_fd, const char *http_header)
 {	
-	char *content_length_str = NULL;
+	const char *content_length_str = NULL;
 	char *buffer=(char*)malloc(DEFAULT_BUFFER_SIZE*16);
 	char *buffer_body=(char*)malloc(DEFAULT_BUFFER_SIZE*512);
 	char *temp=NULL;
@@ -205,8 +209,8 @@ char *http_receive_response_body(int socket_fd, const char *http_header)
 		//Transfer-Encoding: chunked分块
 		char* chunk_length_str=(char*)calloc(1,8);
 		temp=chunk_length_str;
-		strcpy(chunk_length_str,"0x");
-		chunk_length_str+=2;
+	//	strcpy(chunk_length_str,"0x");
+	//	chunk_length_str+=2;
 		int chunk_length=0;
 		for(;;) 
 		{
@@ -216,7 +220,8 @@ char *http_receive_response_body(int socket_fd, const char *http_header)
 				recv(socket_fd, chunk_length_str, 1, 0);
 				if (chunk_length_str[0] == '\n') 
 				{
-					sscanf(temp, "%x\n", &chunk_length); //格式化chunk length字符串为int
+					//sscanf(temp, "%x\n", &chunk_length); //格式化chunk length字符串为int
+					chunk_length = strtol(temp, NULL, 16);
 					if (chunk_length == 0) break;
 					while (chunk_length > 0)
 					{
@@ -224,10 +229,10 @@ char *http_receive_response_body(int socket_fd, const char *http_header)
 						chunk_length -= result_length;
 						strcat(buffer_body, buffer);
 						memset(buffer, 0, strlen(buffer));
-					}	
+					}
 					recv(socket_fd, chunk_length_str, 2, 0);
 					chunk_length = 0;
-					chunk_length_str = temp + 2;
+					chunk_length_str = temp;
 					memset(chunk_length_str, 0, 6);
 				} 
 				else 
@@ -283,7 +288,7 @@ PRESP http_client(const char* url,const char* params, int type, int flag)
 	free(req);
 	
 	//7.封装并返回
-	PRESP resp=(PRESP)malloc(sizeof (http_response));
+	PRESP resp=(PRESP)malloc(sizeof (struct http_response));
 	resp->body=resp_body;
 	if (flag == 1) 
 		free (resp_header);
@@ -316,14 +321,21 @@ char *http_delete(const char *url,const char*params)
 	return http_client(url,params,DELETE,0)->body;
 }
 
+
+#endif    // HTTP_CLIENT_H
+
+
+//*
 int main(int argc, char **argv)
 {
-	char* page = http_get("www.baidu.com");
-	FILE *fp = fopen("/sdcard/index.html","w+");
+	char* page = http_post("https://httpbin.org/post","name=kk&oOMG=$$");
+//	char* page = http_post("https://httpbin.org/headers","name=kk");
+//	FILE *fp = fopen("/sdcard/index.html","w+");
 	
-	fprintf(fp,"%s",page);
-	puts(page);
-	free(page);
-	fclose(fp);
+	printf("%s",page);
+	// puts(page);
+	// free(page);
+	// fclose(fp);
 	return 0;
 }
+//*/

@@ -1,0 +1,105 @@
+The system is: Linux - 4.14.141-gd602f9b - aarch64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /data/user/0/com.n0n3m4.droidc/files/gcc/bin/aarch64-linux-android-gcc -Wl,--no-undefined;-shared
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+
+The C compiler identification is GNU, found in "/storage/emulated/0/Code/代码整理/C4droid代码/myGithub/Game/SFML/multifile/pong/CMakeFiles/3.17.2/CompilerIdC/CMakeCCompilerId.o"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /data/user/0/com.n0n3m4.droidc/files/gcc/bin/aarch64-linux-android-g++ -Wl,--no-undefined;-shared
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+
+The CXX compiler identification is GNU, found in "/storage/emulated/0/Code/代码整理/C4droid代码/myGithub/Game/SFML/multifile/pong/CMakeFiles/3.17.2/CompilerIdCXX/CMakeCXXCompilerId.o"
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /data/user/0/com.n0n3m4.droidc/files/gcc/bin/aarch64-linux-android-gcc -Wl,--no-undefined;-shared
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+
+The C compiler identification is GNU, found in "/storage/emulated/0/Code/代码整理/C4droid代码/myGithub/Game/SFML/multifile/pong/CMakeFiles/3.17.2/CompilerIdC/CMakeCCompilerId.o"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /data/user/0/com.n0n3m4.droidc/files/gcc/bin/aarch64-linux-android-g++ -Wl,--no-undefined;-shared
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+
+The CXX compiler identification is GNU, found in "/storage/emulated/0/Code/代码整理/C4droid代码/myGithub/Game/SFML/multifile/pong/CMakeFiles/3.17.2/CompilerIdCXX/CMakeCXXCompilerId.o"
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /data/user/0/com.n0n3m4.droidc/files/gcc/bin/aarch64-linux-android-gcc -Wl,--no-undefined;-shared
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+
+The C compiler identification is GNU, found in "/storage/emulated/0/Code/代码整理/C4droid代码/myGithub/Game/SFML/multifile/pong/CMakeFiles/3.17.2/CompilerIdC/CMakeCCompilerId.o"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /data/user/0/com.n0n3m4.droidc/files/gcc/bin/aarch64-linux-android-g++ -Wl,--no-undefined;-shared
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+
+The CXX compiler identification is GNU, found in "/storage/emulated/0/Code/代码整理/C4droid代码/myGithub/Game/SFML/multifile/pong/CMakeFiles/3.17.2/CompilerIdCXX/CMakeCXXCompilerId.o"
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /data/user/0/com.n0n3m4.droidc/files/gcc/bin/aarch64-linux-android-gcc -Wl,--no-undefined;-shared
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+
+The C compiler identification is GNU, found in "/storage/emulated/0/Code/代码整理/C4droid代码/myGithub/Game/SFML/multifile/pong/CMakeFiles/3.17.2/CompilerIdC/CMakeCCompilerId.o"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /data/user/0/com.n0n3m4.droidc/files/gcc/bin/aarch64-linux-android-g++ -Wl,--no-undefined;-shared
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+
+The CXX compiler identification is GNU, found in "/storage/emulated/0/Code/代码整理/C4droid代码/myGithub/Game/SFML/multifile/pong/CMakeFiles/3.17.2/CompilerIdCXX/CMakeCXXCompilerId.o"
+
