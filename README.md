@@ -1,4 +1,7 @@
 # this is android c4droid codes
+https://img.shields.io/badge/c4droid_example-200+-green
+![1.jpg](https://img.shields.io/badge/c4droid_example-200+-green)
+
 games and simple program  
 github: https://github.com/qaiu/c4droid-code  
 国内gitee镜像: https://gitee.com/QAIU/c4droid-code  
