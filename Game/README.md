@@ -70,8 +70,7 @@
 
 | NDK项目 | 版本 | 作者/来源 |
 | :----- | :---: | :-----: |
-| [SnakeAI](https://github.com/qaiu/c4droid-code/tree/main/Game/NDK/SnakeAI) | v1.0 | c4droid贴吧某大神
- |
+| [SnakeAI](https://github.com/qaiu/c4droid-code/tree/main/Game/NDK/SnakeAI) | v1.0 | c4droid贴吧某大神 |
 
 ---
 
