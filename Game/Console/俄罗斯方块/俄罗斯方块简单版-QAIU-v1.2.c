@@ -1,7 +1,7 @@
 /**
  * C语言控制台俄罗斯方块 
  * 使用gcc或者clang编译，安卓系统推荐c4droid和termux
- * 操作说明: 46或ad键左右移动 2或w旋转 8或s下落 回车或空格硬降 Q退出
+ * 操作说明: 使用方向键或者--46或ad键左右移动 2或w旋转 8或s下落 回车或空格硬降 Q或者ESC+ESC退出
  * blog: https://blog.qaiu.top
  * 
  * @Date: 2019.6
@@ -275,6 +275,28 @@ void *event(void *p)
 			puts("\e[2J\e[1;1H\t\tBye~ @Author QAIU\e[?25h");
 			exit(0);
 			break;
+		case 27:
+			if((key=getch()) == 27) {
+				exit(0);
+			} else {
+				switch(getch()) {
+				case 'A':
+					rotate();
+					break;
+				case 'B':
+					down_move();
+					break;
+				case 'D':
+					horizontal_move(-1);
+					break;
+				case 'C':
+					horizontal_move(1);
+					break;
+				}
+
+			}
+			
+
 		}
 		draw_map();
 	}
