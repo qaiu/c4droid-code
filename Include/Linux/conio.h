@@ -11,6 +11,7 @@
 #define CONIO_H
  
 #include <stdio.h>
+#include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -25,7 +26,7 @@ static char getch()
     struct termios oldt, newt;
     tcgetattr(STDIN_FILENO, &oldt);
     memcpy(&newt, &oldt, sizeof(newt));
-    newt.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOPRT | ECHOKE | ICRNL);
+    newt.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOKE | ICRNL);
     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
     char c=getchar();
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
