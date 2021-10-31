@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 #include <stdlib.h>
 #include <pthread.h>
 #include <termios.h>
@@ -56,7 +57,7 @@ char getch()
     struct termios oldt, newt;
     tcgetattr(STDIN_FILENO, &oldt);
     memcpy(&newt, &oldt, sizeof(newt));
-    newt.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOPRT | ECHOKE | ICRNL);
+    newt.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOKE | ICRNL);
     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
     char c=getchar();
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
@@ -271,7 +272,7 @@ void *event(void *p)
 			down_move();
 			break;
 		case 'Q':case 'q':
-			puts("\e[2J\e[1;1H\t\tBye~ @Author QAIU");
+			puts("\e[2J\e[1;1H\t\tBye~ @Author QAIU\e[?25h");
 			exit(0);
 			break;
 		}
