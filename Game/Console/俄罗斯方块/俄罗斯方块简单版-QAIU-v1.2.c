@@ -64,6 +64,23 @@ char getch()
     return c;
 }
 
+
+//判断输入 https://www.cnblogs.com/xiayong123/archive/2011/07/19/3717262.html
+static int kbhit(void)
+{
+    struct termios oldt, newt;
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    int oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+    fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+    int ch = getchar();
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    fcntl(STDIN_FILENO, F_SETFL, oldf);
+    return (ch != EOF)? ungetc(ch, stdin),1:0;
+}
+
 //初始化地图(边框)
 void init_map(void)
 {
@@ -248,9 +265,21 @@ void down_move()
     }
 }
 
+void exit_clear() 
+{
+    puts("\e[2J\e[1;1H\t\tBye~ @Author QAIU\e[?25h");
+    exit(0);
+}
+
 // 事件函数，使用多线程所以需要一个void指针
 void *event(void *p)
 {
+    printf("\n\e[0m任意键开始游戏\nq退出...\n");
+
+    if (getch()=='q') exit_clear();
+    *(int *)p=0;
+
+    puts("\e[2J");
     while (1) {
         int key = getch();
         switch (key) {
@@ -272,31 +301,33 @@ void *event(void *p)
             down_move();
             break;
         case 'Q':case 'q':
-            puts("\e[2J\e[1;1H\t\tBye~ @Author QAIU\e[?25h");
-            exit(0);
+            exit_clear();
             break;
         case 27:
-            if((key=getch()) == 27) {
-                exit(0);
-            } else {
-                switch(getch()) {
-                case 'A':
-                    rotate();
-                    break;
-                case 'B':
-                    down_move();
-                    break;
-                case 'D':
-                    horizontal_move(-1);
-                    break;
-                case 'C':
-                    horizontal_move(1);
-                    break;
+            if (kbhit()) {
+                if((key = getch()) == '[') {
+                    switch(getch()) {
+                    case 'A':
+                        rotate();
+                        break;
+                    case 'B':
+                        down_move();
+                        break;
+                    case 'D':
+                        horizontal_move(-1);
+                        break;
+                    case 'C':
+                        horizontal_move(1);
+                        break;
+                    }
                 }
-
+                break;
             }
-
-
+            printf("\e[0m暂停\n任意键继续...\n按q退出\n");
+            *(int *)p=1;
+            if (getch()=='q') exit_clear();
+            *(int *)p=0;
+            puts("\e[2J");
         }
         draw_map();
     }
@@ -309,11 +340,15 @@ int main()
 {
     srand(time(NULL)); //随机数发生器初始化
     pthread_t pid1; //线程id
-    pthread_create(&pid1, NULL, event, NULL); //启动按键事件线程监听按键
+    int8_t pause=1;
     tetromino_next = get_tetromino(); //生成当前方块
     tetromino_first = get_tetromino(); //生成下个方块
     printf("\e[?25l\e[2J"); //隐藏光标，清屏
+    draw_map();
+    usleep(1000);
+    pthread_create(&pid1, NULL, event, &pause); //启动按键事件线程监听按键
     while (1) {
+        if (pause) continue;
         draw_map();
         usleep(500000 - 80000 * level);
         down_move();
