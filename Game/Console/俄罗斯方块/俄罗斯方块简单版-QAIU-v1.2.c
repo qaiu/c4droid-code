@@ -44,7 +44,7 @@ const int coord_y[7][2][4] = {
     {0, 1, 1, 0, 2, 2, 0, 0},
     {1, 0, 0, 0, 2, 2, 2, 0},
     {0, 0, 1, 0, 2, 2, 2, 0}, 
-    
+
 };
 
 volatile int height = 0, down_bottom_flag = 0, line = 0, score = 0, level = 0;
@@ -96,7 +96,7 @@ void draw_map()
         for (int j = 0; j < W; j++) {
             switch (map[i][j]) {
             case 0: //0空白区域 颜色转义来输出彩色
-                printf("  ", tetromino_next.type);
+                printf("  ");
                 break;
             case 1: //主方块的色块
                 printf("\e[37;4%dm  \e[0m", tetromino_first.type+1);
@@ -251,56 +251,56 @@ void down_move()
 // 事件函数，使用多线程所以需要一个void指针
 void *event(void *p)
 {
-	while (1) {
-		int key = getch();
-		switch (key) {
-		case 'a':case '4':				// 左移
-			horizontal_move(-1);
-			break;
-		case 'd':case '6':				// 右移
-			horizontal_move(1);
-			break;
-		case 'w':case '2':				// 旋转
-			rotate();
-			break;
-		case 's':case '5':				// 下移
-			down_move();
-			break;
-		case ' ':case 10:				// 硬降
-			while (!down_bottom_flag)
-				down_move();
-			down_move();
-			break;
-		case 'Q':case 'q':
-			puts("\e[2J\e[1;1H\t\tBye~ @Author QAIU\e[?25h");
-			exit(0);
-			break;
-		case 27:
-			if((key=getch()) == 27) {
-				exit(0);
-			} else {
-				switch(getch()) {
-				case 'A':
-					rotate();
-					break;
-				case 'B':
-					down_move();
-					break;
-				case 'D':
-					horizontal_move(-1);
-					break;
-				case 'C':
-					horizontal_move(1);
-					break;
-				}
+    while (1) {
+        int key = getch();
+        switch (key) {
+        case 'a':case '4':				// 左移
+            horizontal_move(-1);
+            break;
+        case 'd':case '6':				// 右移
+            horizontal_move(1);
+            break;
+        case 'w':case '2':				// 旋转
+            rotate();
+            break;
+        case 's':case '5':				// 下移
+            down_move();
+            break;
+        case ' ':case 10:				// 硬降
+            while (!down_bottom_flag)
+                down_move();
+            down_move();
+            break;
+        case 'Q':case 'q':
+            puts("\e[2J\e[1;1H\t\tBye~ @Author QAIU\e[?25h");
+            exit(0);
+            break;
+        case 27:
+            if((key=getch()) == 27) {
+                exit(0);
+            } else {
+                switch(getch()) {
+                case 'A':
+                    rotate();
+                    break;
+                case 'B':
+                    down_move();
+                    break;
+                case 'D':
+                    horizontal_move(-1);
+                    break;
+                case 'C':
+                    horizontal_move(1);
+                    break;
+                }
 
-			}
-			
+            }
 
-		}
-		draw_map();
-	}
-	return NULL;
+
+        }
+        draw_map();
+    }
+    return NULL;
 }
 
 //主线程   初始地图->绘制->(休眠一段时间)->执行下落->循环...
