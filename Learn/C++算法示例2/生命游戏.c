@@ -34,7 +34,7 @@
 #define H 32
 #define W 32
 // 初始生命数 (最大)
-#define START_NUM 2000
+#define START_NUM 200
 // 繁衍代数
 #define GENERATION_NUM 10000
 
