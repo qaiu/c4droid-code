@@ -29,6 +29,9 @@
 #include <time.h>
 #include <termios.h>
 #include <unistd.h>
+#ifndef TIOCGWINSZ
+#include <sys/ioctl.h>
+#endif
 
 // 地图长宽
 #define H 32
