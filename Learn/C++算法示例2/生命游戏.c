@@ -31,8 +31,8 @@
 #include <unistd.h>
 
 // 地图长宽
-#define H 132
-#define W 100
+#define H 32
+#define W 32
 // 初始生命数 (最大)
 #define START_NUM 2000
 // 繁衍代数
