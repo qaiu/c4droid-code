@@ -35,6 +35,11 @@
 #include <time.h>
 #include <termios.h>
 #include <unistd.h>
+
+#ifndef TIOCGWINSZ
+#include <sys/ioctl.h>
+#endif
+
 // 初始生命数 (最大)
 #define START_NUM 1500
 // 繁衍代数
