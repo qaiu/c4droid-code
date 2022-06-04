@@ -6,11 +6,11 @@ github: https://github.com/qaiu/c4droid-code
 国内gitee镜像: https://gitee.com/QAIU/c4droid-code  
 
 # 简介
-c4droid可以运行的C语言代码，各种demo，有小游戏，小工具，还有各种整理的算法  
+C4droid可以运行的C语言代码，各种demo，有小游戏，小工具，还有各种整理的算法  
 整理的代码，大多来自各种博客论坛(cnblog，CSDN)，开源社区(gitee，github)，百度贴吧，QQ群等  
 # 开发工具简介
-`C4droid`是一款安卓上的c语言和cpp开发环境，本质上是一款集成GCC的编辑器而已，功能简单
-本人利用业余时间做了汉化，并修改了一些bug(包括但不限于中文导出和中文调试的问题)  
+`C4droid`是一款安卓上的C语言和C++开发环境，本质上是一款集成GCC的编辑器而已，功能简单，比较适合C语言初学者入门使用，
+在手机端编程比较方便本人利用业余时间做了汉化，并修改了一些bug(包括但不限于中文导出和中文调试的问题)  
 
 汉化版下载链接 [blog下载](https://blog.qaiu.top) 仅限个人学习使用^^  
 QQ群1：1026766509  
@@ -20,10 +20,12 @@ QQ群2：172725648
 理论支持GCC，clang等编译器，安卓c4droid可以直接运行，其他Linux发行版
 需要将Include/Linux下的头文件拷贝到系统include下，或者放在源码目录
 也可以使用termux的clang编译
+
 # 关于后续完善
 长远来看，本仓库会持续更新，部分代码仍有待优化，内容会渐渐丰富，同时是分享一些简单好玩的东西
 目前来讲，因为工作原因，可能会鸽上一段时间，会C/C++的朋友可以提交分享你们作品，多多益善，
 同时质量一定要好哦
+
 # 主要项目
 - [游戏区/命令行和SDL小游戏](https://github.com/qaiu/c4droid-code/tree/main/Game)
 - [内存编辑器/其他辅助工具/加密算法等等](https://github.com/qaiu/c4droid-code/tree/main/Tool/memedit)
