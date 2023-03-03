@@ -25,7 +25,7 @@ by abao
 2005-11-23
 ************************************************************/
 #include <cmath>
-#include "geometry.hpp"
+#include "geometry.h"
 //基本判断函数
 double max(double a, double b)
 {
