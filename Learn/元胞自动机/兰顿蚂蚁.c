@@ -13,11 +13,13 @@
   */
 
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include <termios.h>
 #include <unistd.h>
+#include <sys/ioctl.h>
 
 // 间隔，微秒
 #define T 100
