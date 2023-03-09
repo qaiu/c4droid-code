@@ -13,9 +13,10 @@ c4droid 长按编译，在编译选项选择编译多个源文件:geometry.cpp m
 快写代码直接创建命令行工程，将.cpp和.hpp复制进去
 */
 
-#include <geometry.hpp>
 #include <stdio.h>
-main()
+
+#include "geometry.h"
+int main()
 {
 /*测试代码*/
 	int n = 6;
@@ -33,4 +34,5 @@ main()
 	printf("%d\n",point_in_circle({5,5}, 5, {0.9,4.9999}));
 	// 两圆关系
 	printf("%d\n",CircleRelation({0,5},5, {0,7}, 3));
+	return 0;
 }
