@@ -17,9 +17,9 @@ date 2017.8.10
 #include <string.h>
 #include <conio.h>
 
-#include "geographicaldata.h"
-#include "mapdata.h"
-#include "dateinit.h"
+#include "GeographicalData.h"
+#include "MapData.h"
+#include "DateInit.h"
 
 int timemap[17][30],timenum[12],cursor[6][7]={};
 int dx,dy,dx0,dy0;
@@ -614,7 +614,7 @@ void print_1(void )
 	}
 	/*其他信息*/
 	gotoxy(35,21);
-	printf("\e[0;35m%s %s",jw.s,jw.x,jw);
+	printf("\e[0;35m%s %s",jw.s,jw.x);
 	gotoxy(35,22);
 	printf("东经%0.2f 北纬%0.2f\n",jw.J,jw.W);
 	printf("\e[0;47;31m\n2/4/6/8移动光标 1/3上/下一月 7/9上/下一年 5菜单 0返回今天\e[0m\n");

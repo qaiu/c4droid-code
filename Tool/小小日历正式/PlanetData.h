@@ -1,3 +1,4 @@
+#include <math.h>
 #ifndef PLANETDATA_H
 #define PLANETDATA_H
 

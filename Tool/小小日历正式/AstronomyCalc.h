@@ -1,6 +1,7 @@
 #ifndef ASTRONOMY_CALC_H
 #define ASTRONOMY_CALC_H
-#include "planetdata.h"
+#include "PlanetData.h"
+
 /*
 天文计算部分
 如非必要，请勿乱动
