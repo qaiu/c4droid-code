@@ -1,24 +1,19 @@
-/*
- * conio.h 
- * C4droid自带这个头，所以使用C4droid运行可以忽略
- * 这个头文件主要提供终端常用的getch和kbhit函数
- * 如果使用其他Linux系统，需要这个头文件将它放在合适位置来引用
- * 
- * @Author: QAIU
+/**
+ *	conio.h
+ *	Author: Jakash3 QAIU
  */
+
+// Update.2021-11-01 兼容Cygwin 修改getch实现方式
+// Update.2021-11-03 添加windows下MinGW-GCC编译支持
+// Update.2023-03-15 修改getch和kbhit的实现
 
 #ifndef CONIO_H
 #define CONIO_H
- 
+
+#if defined (__unix__)
 #include <stdio.h>
-#include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
-#include <pthread.h>
+#include <unistd.h>
 #include <termios.h>
-#include <unistd.h>
-#include <unistd.h>
-#include <fcntl.h>
 
 //读取单字符 https://my.oschina.net/yougui/blog/111345
 static char getch() 
@@ -60,4 +55,23 @@ static void _clrscr() {clrscr();}
 static int _getch() {return getch();}
 
 static int _kbhit() {return kbhit();}
-#endif
+
+#elif defined (__WIN32__) || defined (__GNUC__) // __unix__
+#include <windows.h>
+#include <conio.h>
+#include <stdio.h>
+
+static void clrscr() {system("cls");}
+
+static void _clrscr() {clrscr();}
+
+static void gotoxy(int x, int y) {
+  COORD c;
+  c.X = x;
+  c.Y = y;
+  SetConsoleCursorPosition (GetStdHandle(STD_OUTPUT_HANDLE), c);
+}
+static void _gotoxy(int x,int y) {gotoxy(x,y);}
+#endif // __WIN32__
+
+#endif // CONIO_H
