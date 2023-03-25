@@ -32,6 +32,7 @@ int main()
 {
 	auto c = foo(2);
 	c(10);
+	c(10);
 
 	//一般形式
 	auto foo2=[](int x)
