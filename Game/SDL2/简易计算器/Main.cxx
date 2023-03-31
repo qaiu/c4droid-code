@@ -2,9 +2,13 @@
 //简易计算器[v1.1]
 //请赐教摩羯 编写
 //白狼·圣狂 修改
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
-#include "SDL2/SDL_ttf.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
+
+#include <SDL2/SDL_image.h>
+
+//#include <GLES/gl.h>
 #include "unistd.h"
 #define N 200
 
@@ -53,7 +57,7 @@ double JJ(void);				/* 处理加减并计算 */
 void compute();					/* 
 								   最后计算结果 */
 
-int main(int argc, char *argv[])
+int main(int argc, char** args)
 {
   /*  得到应用文件路径  */
 	for ( int i=0; i<2; i++ )

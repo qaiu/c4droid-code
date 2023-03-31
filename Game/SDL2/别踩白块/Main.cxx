@@ -3,7 +3,7 @@
 风飞飘扬是本人 编写
 */
 #include "SDL2/SDL.h"
-#include "SDL/SDL_ttf.h"
+#include "SDL2/SDL_ttf.h"
 #include "SDL2/SDL_mixer.h"
 #include <stdio.h>
 #include <time.h>
@@ -1204,7 +1204,7 @@ void menu()
   }
 }
 
-int main()
+int main(int argc, char** args)
 {
   srand(time(NULL));
   Init();

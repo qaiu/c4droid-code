@@ -1,8 +1,8 @@
 /*
-OpenSLES播放音频
-by:千百度
-修改自CSDN论坛
-原文链接:http://m.blog.csdn.net/tanningzhong/article/details/48002101
+  OpenSLES播放音频
+  整理/修改: 千百度
+  修改自CSDN论坛
+  原文链接: http://m.blog.csdn.net/tanningzhong/article/details/48002101
 */
 #ifndef SLES_MUSIC_H
 #define SLES_MUSIC_H

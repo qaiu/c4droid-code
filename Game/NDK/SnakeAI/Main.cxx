@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <time.h>
+#include <string.h>
 #include <stdlib.h>
 #include <EGL/egl.h>
 #include <GLES3/gl31.h>

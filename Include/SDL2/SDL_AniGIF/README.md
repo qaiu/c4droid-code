@@ -1,4 +1,4 @@
 # SDL_AniGIF
-SDL2µÄGIF¼òÒ×½âÎö¿â
-# À´Ô´
-À´×ÔÍøÂç×ÊÔ´£¬ÇÖÔò±ØÉ¾
+SDL2çš„GIFç®€æ˜“è§£æžåº“
+# æ¥æº
+æ¥è‡ªç½‘ç»œèµ„æºï¼Œä¾µåˆ™å¿…åˆ 

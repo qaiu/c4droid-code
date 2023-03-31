@@ -94,7 +94,7 @@ node *nowob=NULL;
 #include "gettouch.c"
 //触屏获取及处理线程
 
-int main()
+int main(int argc, char** args)
 {
 	allob=createnode();
 	//创建链表(doobs.c)

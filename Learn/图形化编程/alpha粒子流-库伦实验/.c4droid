@@ -1,0 +1,11 @@
+#Thu Jun 04 19:52:59 CST (China) 2015
+conf_patch=true
+conf_internal=false
+prepare_cmds=export PATH\=/busybox-virtual\:(c4droid\:DATADIR)\:(c4droid\:GCCROOT)bin\:(c4droid\:GCCROOT)(c4droid\:PREFIX)/bin/\:$PATH\nexport CC\="(c4droid\:PREFIX)-gcc (c4droid\:PIE) (c4droid\:MAKEMODEARGS)"\nexport CXX\="(c4droid\:PREFIX)-g++ (c4droid\:PIE) (c4droid\:MAKEMODEARGS)"\nexport SHELL\="(c4droid\:DATADIR)busybox sh"\ncd (c4droid\:CURSRCDIR)
+conf_cmd=export PATH\=/busybox-virtual\:(c4droid\:DATADIR)\:(c4droid\:GCCROOT)bin\:(c4droid\:GCCROOT)(c4droid\:PREFIX)/bin/\:$PATH\nexport CFLAGS\="-Os -s (c4droid\:PIE)"\nexport CXXFLAGS\="-Os -s (c4droid\:PIE)"\nexport SHELL\="(c4droid\:DATADIR)busybox sh"\nexport CONFIG_SHELL\="sh"\nexport PKG_CONFIG_PATH\=(c4droid\:GCCROOT)(c4droid\:PREFIX)/lib/pkgconfig\ncd (c4droid\:BUILDDIR)\n(c4droid\:CURSRCDIR)/configure --host\=(c4droid\:PREFIX) --prefix\=(c4droid\:GCCROOT)(c4droid\:PREFIX) CFLAGS\="$CFLAGS" CXXFLAGS\="$CXXFLAGS" --build\=i686-linux --disable-shared --enable-static\nmake SHELL\="$SHELL"\nmake install SHELL\="$SHELL"
+binary_fname=
+make_cmd=make CC\="$CC" CXX\="$CXX" SHELL\="$SHELL"
+qmake_cmd=export PATH\=(c4droid\:GCCROOT)qt/bin/\:$PATH\nexport C4DROID_QTLIBPATH\=(c4droid\:QTLIBPATH)\nqmake -spec android-g++
+run_mode=0
+comp_mode=4
+sm_names=constant.cpp atom.cpp draw.cpp simulator.cpp main.cpp
