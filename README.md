@@ -6,7 +6,7 @@
 
 github: https://github.com/qaiu/c4droid-code  
 gitee镜像: https://gitee.com/QAIU/c4droid-code  
-C4droid下载链接 https://blog.qaiu.top/c4droid  
+C4droid下载链接 https://blog.qaiu.top/archives/c4droid  
 QQ群1：1026766509  
 QQ群2：172725648  
 QQ：736226400  
