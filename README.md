@@ -6,10 +6,10 @@
 
 github: https://github.com/qaiu/c4droid-code  
 gitee镜像: https://gitee.com/QAIU/c4droid-code  
-C4droid下载链接 https://blog.qaiu.top/c4droid
+C4droid下载链接 https://blog.qaiu.top/c4droid  
 QQ群1：1026766509  
 QQ群2：172725648  
-QQ：736226400
+QQ：736226400  
 
 # 简介
 C4droid可以运行的C语言代码，各种demo，有小游戏，小工具，还有各种整理的算法  
