@@ -1,4 +1,7 @@
-# this is android c4droid codes
+# This is android c4droid codes
+> 我愿意将此项目称之为C4droid代码考古，因为这些源码大多都很久远了，C4droid以于2020年停止维护
+> 感谢n0n3m4大佬为安卓手机提供了C语言开发环境，虽然功能简陋，但手机上学习也够用了，想想看在你蹲坑无聊时候还能掏出手机Codding(bushi)是不是也很爽
+
 ![1.jpg](https://img.shields.io/badge/c4droid_example-200+-green)
 
 games and simple program  
@@ -36,8 +39,25 @@ QQ群2：172725648
 ![Screenshot_20200802024229807_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-02-42-29-807_com.n0n3m4.droida-3d48ade904dc49bf9f991ad9ff448bc0.jpg)
 ![Screenshot_20200802023614588_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-02-36-14-588_com.n0n3m4.droida-ec34f56b785e4d15ad8257d239c1d8a0.jpg)
 
-# 其他优秀的基于C4droid编写的开源项目
-TODO
+# 其他优秀的基于C4droid编写的开源项目(未严格验证，可能有各种bug，甚至不能运行，且大多都不再维护)
+- 这些年用C4droid写过的代码 https://github.com/cclfly/C4droidProjects/tree/master
+
+- C++编写的SDL2引擎. https://github.com/Kiritow/MiniEngine
+
+- C4droid音频播放器 https://github.com/Kiritow/C4droid-Audio-Player
+
+- code4a(C4droid代码手册)已不再维护 https://github.com/TTHHR/code4a
+
+- Android native(GLES)开发的辅助库 https://github.com/z123k5/NativeInterface
+
+- A Package Management Tool for c4droid app. https://github.com/imkiwa/c4pkg
+
+- 音乐游戏Force Rush的源代码 https://github.com/FaMuLan/Force-Rush
+
+- 蹲坑时候无聊，用C4droid开发的小游戏代码 https://github.com/zjko/GCC_Game
+
+- 飞机大战项目 C4droid+C语言+SDL2 https://github.com/ljp-cyber/air-war
+
 
 
 # 更新记录（记录开始于2023-04-01）：
