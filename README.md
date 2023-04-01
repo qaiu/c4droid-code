@@ -17,11 +17,16 @@ C4droid可以运行的C语言代码，各种demo，有小游戏，小工具，�
 # 开发工具简介
 `C4droid`是一款安卓上的C语言和C++开发环境，本质上是一款集成GCC的编辑器而已，功能简单，比较适合C语言初学者入门使用，
 在手机端编程比较方便本人利用业余时间做了汉化，并修改了一些bug(包括但不限于中文导出和中文调试的问题)  
+## C4droid使用教程可以参考元小旦博客：
+*c4droid入门教程（2022干货）- 手机C4DROID编辑器*  
+https://blog.csdn.net/yuanwow/article/details/104151251  
+https://blog.csdn.net/yuanwow/article/details/113728527  
 
 # 编译运行
 理论支持GCC，clang等编译器，安卓c4droid可以直接运行，其他Linux发行版
 需要将Include/Linux下的头文件拷贝到系统include下，或者放在源码目录
 也可以使用termux的clang编译
+include目录下有一个common_install.cpp 是安装glm用的，使用C4droid直接运行即可
 
 # 参与维护本项目
 长远来看，本仓库会持续更新，部分代码仍有待优化，内容会渐渐丰富，同时是分享一些简单好玩的东西
