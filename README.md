@@ -1,5 +1,5 @@
 # This is android c4droid codes
-> 我愿意将此项目称之为C4droid代码考古，因为这些源码大多都很久远了，C4droid以于2020年停止维护
+> 我愿意将此项目称之为C4droid代码考古，因为这些源码大多都很久远了，C4droid已于2020年停止维护
 > 感谢n0n3m4大佬为安卓手机提供了C语言开发环境，虽然功能简陋，但手机上学习也够用了，想想看在你蹲坑无聊时候还能掏出手机Codding(bushi)是不是也很爽
 
 ![1.jpg](https://img.shields.io/badge/c4droid_example-200+-green)
