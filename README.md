@@ -42,9 +42,9 @@ include目录下有一个common_install.cpp 是安装glm用的，使用C4droid�
 - [数百个算法示例/c4droid手册包含的代码等等](https://github.com/qaiu/c4droid-code/tree/main/Learn/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95)
 
 -----
-![Screenshot_20200802005600345_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-00-56-00-345_com.n0n3m4.droida-5c420cfc3c3d4375b0042716b2d2f9f4.jpg)
-![Screenshot_20200802024229807_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-02-42-29-807_com.n0n3m4.droida-3d48ade904dc49bf9f991ad9ff448bc0.jpg)
-![Screenshot_20200802023614588_com.n0n3m4.droida.jpg](https://blog.qaiu.top/upload/2020/08/Screenshot_2020-08-02-02-36-14-588_com.n0n3m4.droida-ec34f56b785e4d15ad8257d239c1d8a0.jpg)
+![IMG_20230413_180800](https://bd2.qaiu.cn/blog/IMG_20230413_180800.jpg)
+![IMG_20230413_180818](https://bd2.qaiu.cn/blog/IMG_20230413_180818.jpg)
+![IMG_20230413_180842](https://bd2.qaiu.cn/blog/IMG_20230413_180842.jpg)
 
 # 其他优秀的基于C4droid编写的开源项目(未严格验证，可能有各种bug，甚至不能运行，且大多都不再维护)
 - 这些年用C4droid写过的代码 https://github.com/cclfly/C4droidProjects/tree/master
