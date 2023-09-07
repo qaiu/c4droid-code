@@ -85,8 +85,8 @@ enum	// DIRECTION
 /* int pau 暂停flag 用于控制子线程 pau=-1
    暂停按键监听(将监听交给主线程) 暂停界面刷新 pau=0
    按键暂停 保持监听 pau=1 按键继续 */
-volatile int pau = 1;
-volatile int pau0 = 1;
+int pau = 1;
+int pau0 = 1;
 
 
 
@@ -95,17 +95,17 @@ volatile int pau0 = 1;
  * k=0 下面没有方块阻挡可以下落 
  * k=1 下面有方块阻挡应当锁定 
  */
-volatile bool k = 0;
+bool k = 0;
 
-volatile int t_sum[8];			// 方块数统计
-volatile int line_sum[5] = { };	// 消行数统计
+int t_sum[8];			// 方块数统计
+int line_sum[5] = { };	// 消行数统计
 
-volatile int score_top = 0;			// 最高分
-volatile int score = 0;			// 分数
-volatile int map[H + 1][W + 1];	// 地图数组
-volatile int t = T0;			// 步时 (下落速度)
-volatile int lv = 0, lv0 = 0;	// 等级
-volatile int history[4] = { };	// 历史方块记录
+int score_top = 0;			// 最高分
+int score = 0;			// 分数
+int map[H + 1][W + 1] = { };	// 地图数组
+int t = T0;			// 步时 (下落速度)
+int lv = 0, lv0 = 0;	// 等级
+int history[4] = { };	// 历史方块记录
 
 const char *filename = "sample.dat";	// 分值记录文件
 //int sl = 50000;
@@ -230,9 +230,9 @@ void loading()
 //	create_timer(t);
 }
 
+static struct timeval tv = {};
 void refresh_map(int t)
 {
-	static struct timeval tv;
 	tv.tv_sec = 0; 
 	tv.tv_usec = t;
 	
@@ -683,8 +683,7 @@ void drop(int temp) //形参是定时器需要，实际无用
 			}
 		}
 	}
-
-	if (map[2][8] > 3 || map[2][9] > 3 || map[2][10] > 3 || map[2][11] > 3)
+	if (map[2][8] > 3 || map[2][9] > 3)
 	{
 		gameover();
 	}
