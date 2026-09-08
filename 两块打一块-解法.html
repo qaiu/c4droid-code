@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>两块打一块 · 摆谱计算器</title>
+<style>
+  :root {
+    --bg: #16130f;
+    --panel: #221c16;
+    --ink: #f3ead8;
+    --muted: #b7a78a;
+    --line: #3a3226;
+    --red: #c23b22;
+    --red-hi: #ff6b4a;
+    --blue: #2c6ebd;
+    --blue-hi: #6aa8ff;
+    --gold: #e2b84a;
+    --ok: #7dba6a;
+    --danger: #e07060;
+    --board: #c9a36a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 24px 18px 48px; }
+  h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: .04em; }
+  .sub { color: var(--muted); margin-bottom: 22px; line-height: 1.55; }
+  .layout { display: grid; grid-template-columns: minmax(320px, 480px) 1fr; gap: 22px; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+  .board-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .frame {
+    display: grid;
+    grid-template-columns: 28px repeat(4, 78px);
+    grid-template-rows: 28px repeat(4, 78px);
+    gap: 6px;
+    background: #5b3e1e;
+    padding: 10px;
+    border-radius: 14px;
+    box-shadow: inset 0 0 0 3px #3a2410, 0 10px 30px rgba(0,0,0,.35);
+  }
+  .col-lab, .row-lab { display: flex; align-items: center; justify-content: center; color: #f0d9a8; font-weight: 700; }
+  .cell {
+    background: var(--board);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cell:hover { filter: brightness(1.08); }
+  .cell.from { box-shadow: inset 0 0 0 4px var(--gold); }
+  .cell.to { box-shadow: inset 0 0 0 4px var(--ok); }
+  .cell.cap { box-shadow: inset 0 0 0 4px var(--danger); }
+  .cell.legal::after {
+    content: "";
+    width: 14px; height: 14px; border-radius: 50%;
+    background: rgba(30,30,30,.38);
+  }
+  .stone {
+    width: 56px; height: 56px; border-radius: 50%;
+    box-shadow: inset -6px -8px 12px rgba(0,0,0,.28), inset 5px 6px 10px rgba(255,255,255,.22), 0 4px 8px rgba(0,0,0,.25);
+  }
+  .stone.red { background: radial-gradient(circle at 32% 28%, var(--red-hi), var(--red) 46%, #7a160c); }
+  .stone.blue { background: radial-gradient(circle at 32% 28%, var(--blue-hi), var(--blue) 46%, #123a72); }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  button, select, input[type="text"] {
+    background: #2c2418; color: var(--ink); border: 1px solid var(--line);
+    border-radius: 10px; padding: 8px 12px; cursor: pointer; font-size: 14px;
+  }
+  input[type="text"] { min-width: 220px; cursor: text; font-family: ui-monospace, monospace; }
+  button.primary { background: #6b3b12; border-color: #8a5220; color: #ffe9c2; font-weight: 700; }
+  button.red { background: #5a1d16; }
+  button.blue { background: #16345c; }
+  button.active { outline: 2px solid var(--gold); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  .status { min-height: 28px; color: var(--gold); font-weight: 700; }
+  .hint { color: var(--muted); font-size: 13px; line-height: 1.5; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); }
+  tr.best { background: rgba(226,184,74,.12); }
+  tr:hover { background: rgba(255,255,255,.04); cursor: pointer; }
+  .pv { font-family: ui-monospace, Menlo, monospace; color: #d7c8a4; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0 12px; }
+  .kpi { background: #1a1510; border-radius: 10px; padding: 10px; text-align: center; }
+  .kpi b { display: block; font-size: 20px; }
+  .rules details { color: var(--muted); font-size: 13px; line-height: 1.6; }
+  .log { max-height: 160px; overflow: auto; font-size: 13px; color: #d9ccb0; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>两块打一块 · 摆谱计算器</h1>
+  <p class="sub">按现有局面摆子，选轮走方，点「计算下一步」。规则对齐给定逻辑：4×4、横竖走一格到空位、主动形成「己己敌 / 敌己己」才吃、满线 4 子不吃、对方少于 2 子即胜。</p>
+  <div class="layout">
+    <div class="panel board-wrap">
+      <div class="frame" id="frame"></div>
+      <div class="toolbar">
+        <button id="brushCycle" class="active">点格循环</button>
+        <button id="brushEmpty">空</button>
+        <button id="brushRed" class="red">红</button>
+        <button id="brushBlue" class="blue">蓝</button>
+      </div>
+      <div class="toolbar">
+        <button id="initBtn">开局</button>
+        <button id="clearBtn">清空</button>
+        <button id="undoBtn">悔棋</button>
+        <button id="flipBtn">换边</button>
+        <button id="playBtn">试走</button>
+      </div>
+      <div class="status" id="status">摆谱：点击格子循环 空 → 红 → 蓝</div>
+      <p class="hint">坐标：列 A–D，行 1–4（最上为第 1 行，开局红在上、蓝在下）。黄框起点、绿框落点、红框被吃。</p>
+    </div>
+    <div class="panel">
+      <div class="toolbar">
+        <label>轮走
+          <select id="side">
+            <option value="red">红</option>
+            <option value="blue">蓝</option>
+          </select>
+        </label>
+        <label>深度
+          <select id="depth">
+            <option>3</option>
+            <option>4</option>
+            <option selected>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+          </select>
+        </label>
+        <button class="primary" id="solveBtn">计算下一步</button>
+        <button id="applyBtn" disabled>应用此着</button>
+      </div>
+      <div class="kpis">
+        <div class="kpi">红子<b id="redN">4</b></div>
+        <div class="kpi">蓝子<b id="blueN">4</b></div>
+        <div class="kpi">合法着<b id="moveN">0</b></div>
+      </div>
+      <div class="hint" id="evalLine">尚未计算。摆好局面后点计算；点表中某行可预览该着，再点「应用此着」。</div>
+      <div style="overflow:auto; max-height: 300px; margin-top: 8px;">
+        <table>
+          <thead><tr><th>#</th><th>着法</th><th>吃</th><th>评分</th><th>后续变化</th></tr></thead>
+          <tbody id="moveTable"></tbody>
+        </table>
+      </div>
+      <div class="toolbar" style="margin-top:12px">
+        <input id="fenBox" type="text" spellcheck="false" placeholder="局面串，例如 RRRR/..../..../BBBB r" />
+        <button id="loadFen">导入</button>
+        <button id="copyFen">复制局面</button>
+      </div>
+      <div class="log" id="log"></div>
+      <div class="rules" style="margin-top:14px">
+        <details open>
+          <summary>规则与用法</summary>
+          棋子只能上下左右走一格到空位。走子后检查该子所在行、列：若出现连续「己己敌」或「敌己己」，且该线未满 4 子，则吃掉敌子。贴上对方两子不会被吃。评分相对轮走方：正分占优，大于约 5000 接近必胜。试走模式先点己子再点空位。
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const N = 4;
+const COLS = ["A", "B", "C", "D"];
+const INF = 1e6;
+
+const Engine = (() => {
+  const clone = b => b.map(row => row.slice());
+  const opp = p => p === "red" ? "blue" : "red";
+  const count = (b, p) => {
+    let n = 0;
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (b[r][c] === p) n++;
+    return n;
+  };
+  const pt = (r, c) => ({ r, c });
+  const getValidMoves = (b, piece) => {
+    const out = [];
+    for (const [dr, dc] of [[-1,0],[1,0],[0,-1],[0,1]]) {
+      const r = piece.r + dr, c = piece.c + dc;
+      if (r >= 0 && r < N && c >= 0 && c < N && b[r][c] === null) out.push(pt(r, c));
+    }
+    return out;
+  };
+  const allMoves = (b, player) => {
+    const moves = [];
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) {
+      if (b[r][c] === player) {
+        for (const to of getValidMoves(b, pt(r, c))) moves.push({ from: pt(r, c), to });
+      }
+    }
+    return moves;
+  };
+  const processCaptures = (b, last, player) => {
+    const next = clone(b);
+    const captured = [];
+    const enemy = opp(player);
+    const { r, c } = last;
+    const checkLine = (line, idx) => {
+      if (line.filter(x => x !== null).length === N) return;
+      for (let i = 0; i <= N - 3; i++) {
+        const p1 = line[i], p2 = line[i + 1], p3 = line[i + 2];
+        const ids = [idx[i], idx[i + 1], idx[i + 2]];
+        if (!ids.some(x => x.r === r && x.c === c)) continue;
+        if (p1 === player && p2 === player && p3 === enemy && next[idx[i + 2].r][idx[i + 2].c] === enemy) {
+          next[idx[i + 2].r][idx[i + 2].c] = null;
+          captured.push(idx[i + 2]);
+        }
+        if (p1 === enemy && p2 === player && p3 === player && next[idx[i].r][idx[i].c] === enemy) {
+          next[idx[i].r][idx[i].c] = null;
+          captured.push(idx[i]);
+        }
+      }
+    };
+    checkLine(next[r], Array.from({ length: N }, (_, i) => pt(r, i)));
+    checkLine(next.map(row => row[c]), Array.from({ length: N }, (_, i) => pt(i, c)));
+    return { board: next, captured };
+  };
+  const simulate = (b, move, player) => {
+    const next = clone(b);
+    next[move.from.r][move.from.c] = null;
+    next[move.to.r][move.to.c] = player;
+    return processCaptures(next, move.to, player);
+  };
+  const pack = (b, player) => {
+    let h = player === "red" ? 1 : 2;
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) {
+      h = h * 3 + (b[r][c] === "red" ? 1 : b[r][c] === "blue" ? 2 : 0);
+    }
+    return h;
+  };
+  const pairBonus = (b, p) => {
+    let n = 0;
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (b[r][c] === p) {
+      if (c + 1 < N && b[r][c + 1] === p) n++;
+      if (r + 1 < N && b[r + 1][c] === p) n++;
+    }
+    return n * 4;
+  };
+  const evaluate = (b, me) => {
+    const you = opp(me);
+    const mc = count(b, me), yc = count(b, you);
+    if (yc < 2) return 8000;
+    if (mc < 2) return -8000;
+    const myMoves = allMoves(b, me);
+    const yoMoves = allMoves(b, you);
+    if (!myMoves.length) return -7000;
+    if (!yoMoves.length) return 7000;
+    let score = (mc - yc) * 120 + (myMoves.length - yoMoves.length) * 3;
+    let myCap = 0, yoCap = 0;
+    for (const m of myMoves) myCap = Math.max(myCap, simulate(b, m, me).captured.length);
+    for (const m of yoMoves) yoCap = Math.max(yoCap, simulate(b, m, you).captured.length);
+    return score + myCap * 28 - yoCap * 24 + pairBonus(b, me) - pairBonus(b, you);
+  };
+  const orderMoves = (b, player, moves) =>
+    moves.slice().sort((a, z) => simulate(b, z, player).captured.length - simulate(b, a, player).captured.length);
+
+  const TT = new Map();
+  const negamax = (b, player, depth, alpha, beta, pv) => {
+    const meCount = count(b, player), yoCount = count(b, opp(player));
+    if (yoCount < 2) return 9000 + depth;
+    if (meCount < 2) return -9000 - depth;
+    const origAlpha = alpha;
+    const key = pack(b, player);
+    const hit = TT.get(key);
+    if (hit && hit.depth >= depth && !pv) {
+      if (hit.flag === "exact") return hit.score;
+      if (hit.flag === "lower") alpha = Math.max(alpha, hit.score);
+      if (hit.flag === "upper") beta = Math.min(beta, hit.score);
+      if (alpha >= beta) return hit.score;
+    }
+    const moves = allMoves(b, player);
+    if (!moves.length) return -8000 - depth;
+    if (depth === 0) return evaluate(b, player);
+    let best = -INF;
+    let bestMove = null;
+    let bestChild = [];
+    for (const m of orderMoves(b, player, moves)) {
+      const childPv = [];
+      const nb = simulate(b, m, player).board;
+      const sc = -negamax(nb, opp(player), depth - 1, -beta, -alpha, pv ? childPv : null);
+      if (sc > best) {
+        best = sc;
+        bestMove = m;
+        bestChild = childPv;
+      }
+      if (sc > alpha) alpha = sc;
+      if (alpha >= beta) break;
+    }
+    if (pv && bestMove) {
+      pv.length = 0;
+      pv.push(bestMove);
+      for (const m of bestChild) pv.push(m);
+    }
+    const flag = best <= origAlpha ? "upper" : best >= beta ? "lower" : "exact";
+    TT.set(key, { depth, score: best, flag });
+    return best;
+  };
+  const analyze = (b, player, depth) => {
+    TT.clear();
+    const moves = allMoves(b, player);
+    const ranked = [];
+    for (const m of moves) {
+      const sim = simulate(b, m, player);
+      const childPv = [];
+      const sc = -negamax(sim.board, opp(player), depth - 1, -INF, INF, childPv);
+      ranked.push({ move: m, score: sc, captured: sim.captured, pv: [m, ...childPv] });
+    }
+    ranked.sort((a, z) => bscore(z) - bscore(a) || z.captured.length - a.captured.length);
+    return ranked;
+  };
+  const bscore = x => x.score;
+  const toFen = (b, player) => {
+    const rows = b.map(row => row.map(x => x === "red" ? "R" : x === "blue" ? "B" : ".").join(""));
+    return rows.join("/") + " " + (player === "red" ? "r" : "b");
+  };
+  const fromFen = text => {
+    const raw = String(text || "").trim();
+    const parts = raw.split(/\s+/);
+    const rows = parts[0].split("/");
+    if (rows.length !== N || rows.some(row => row.length !== N)) throw new Error("局面串应为 4 行、每行 4 格，如 RRRR/..../..../BBBB r");
+    const b = rows.map(row => [...row].map(ch => {
+      if (ch === "R" || ch === "r") return "red";
+      if (ch === "B" || ch === "b") return "blue";
+      if (ch === "." || ch === "_" || ch === "0") return null;
+      throw new Error("非法字符 " + ch);
+    }));
+    const player = (parts[1] || "r").toLowerCase().startsWith("b") ? "blue" : "red";
+    return { board: b, player };
+  };
+  return { clone, opp, count, getValidMoves, allMoves, simulate, analyze, toFen, fromFen, createInitial() {
+    const b = Array.from({ length: N }, () => Array(N).fill(null));
+    for (let c = 0; c < N; c++) { b[0][c] = "red"; b[N - 1][c] = "blue"; }
+    return b;
+  }};
+})();
+
+const name = p => COLS[p.c] + (p.r + 1);
+const moveName = m => name(m.from) + "→" + name(m.to);
+const eq = (a, b) => a && b && a.r === b.r && a.c === b.c;
+
+let board = Engine.createInitial();
+let side = "red";
+let brush = "cycle";
+let playMode = false;
+let selected = null;
+let marks = { from: null, to: null, caps: [] };
+let history = [];
+let lastRanked = [];
+let chosen = null;
+
+function pushHist() {
+  history.push({ board: Engine.clone(board), side, marks: JSON.parse(JSON.stringify(marks)) });
+}
+function logLine(s) {
+  document.getElementById("log").insertAdjacentHTML("afterbegin", `<div>${s}</div>`);
+}
+function applyMove(move, player) {
+  const sim = Engine.simulate(board, move, player);
+  board = sim.board;
+  marks = { from: move.from, to: move.to, caps: sim.captured };
+  logLine((player === "red" ? "红" : "蓝") + " " + moveName(move) + (sim.captured.length ? " 吃 " + sim.captured.map(name).join(",") : ""));
+}
+function winnerText() {
+  if (Engine.count(board, "red") < 2) return "蓝胜（红子不足 2）";
+  if (Engine.count(board, "blue") < 2) return "红胜（蓝子不足 2）";
+  if (Engine.allMoves(board, side).length === 0) return (side === "red" ? "红" : "蓝") + "无着，判负";
+  return "";
+}
+function renderBoard() {
+  const frame = document.getElementById("frame");
+  frame.innerHTML = "";
+  frame.appendChild(document.createElement("div"));
+  for (let c = 0; c < N; c++) {
+    const lab = document.createElement("div");
+    lab.className = "col-lab";
+    lab.textContent = COLS[c];
+    frame.appendChild(lab);
+  }
+  for (let r = 0; r < N; r++) {
+    const lab = document.createElement("div");
+    lab.className = "row-lab";
+    lab.textContent = String(r + 1);
+    frame.appendChild(lab);
+    for (let c = 0; c < N; c++) {
+      const cell = document.createElement("div");
+      cell.className = "cell";
+      if (eq(marks.from, { r, c })) cell.classList.add("from");
+      if (eq(marks.to, { r, c })) cell.classList.add("to");
+      if (marks.caps.some(x => eq(x, { r, c }))) cell.classList.add("cap");
+      if (selected && Engine.getValidMoves(board, selected).some(t => t.r === r && t.c === c)) cell.classList.add("legal");
+      if (board[r][c]) {
+        const s = document.createElement("div");
+        s.className = "stone " + board[r][c];
+        cell.appendChild(s);
+      }
+      cell.onclick = () => onCell(r, c);
+      frame.appendChild(cell);
+    }
+  }
+  document.getElementById("redN").textContent = Engine.count(board, "red");
+  document.getElementById("blueN").textContent = Engine.count(board, "blue");
+  document.getElementById("moveN").textContent = Engine.allMoves(board, side).length;
+  document.getElementById("side").value = side;
+  document.getElementById("fenBox").value = Engine.toFen(board, side);
+  const w = winnerText();
+  if (w) document.getElementById("evalLine").textContent = w;
+  try { history.replaceState(null, "", "#" + encodeURIComponent(Engine.toFen(board, side))); } catch (e) {}
+}
+
+function onCell(r, c) {
+  if (playMode) {
+    if (selected && board[r][c] === null && Engine.getValidMoves(board, selected).some(t => t.r === r && t.c === c)) {
+      pushHist();
+      applyMove({ from: selected, to: { r, c } }, side);
+      selected = null;
+      side = Engine.opp(side);
+      lastRanked = [];
+      chosen = null;
+      document.getElementById("applyBtn").disabled = true;
+      renderBoard();
+      return;
+    }
+    selected = board[r][c] === side ? { r, c } : null;
+    renderBoard();
+    return;
+  }
+  pushHist();
+  if (brush === "cycle") {
+    const v = board[r][c];
+    board[r][c] = v === null ? "red" : v === "red" ? "blue" : null;
+  } else {
+    board[r][c] = brush === "empty" ? null : brush;
+  }
+  marks = { from: null, to: null, caps: [] };
+  lastRanked = [];
+  chosen = null;
+  document.getElementById("applyBtn").disabled = true;
+  renderBoard();
+}
+
+function setBrush(v) {
+  brush = v;
+  playMode = false;
+  selected = null;
+  document.getElementById("playBtn").classList.remove("active");
+  ["brushEmpty", "brushRed", "brushBlue", "brushCycle"].forEach(id => document.getElementById(id).classList.remove("active"));
+  const map = { empty: "brushEmpty", red: "brushRed", blue: "brushBlue", cycle: "brushCycle" };
+  document.getElementById(map[v]).classList.add("active");
+  document.getElementById("status").textContent = v === "cycle"
+    ? "摆谱：点击格子循环 空 → 红 → 蓝"
+    : "摆谱画笔：" + (v === "empty" ? "空" : v === "red" ? "红" : "蓝");
+}
+
+function previewRow(row) {
+  chosen = row;
+  marks = { from: row.move.from, to: row.move.to, caps: row.captured };
+  renderBoard();
+  document.getElementById("applyBtn").disabled = false;
+}
+
+function renderMoves(ranked) {
+  lastRanked = ranked;
+  chosen = ranked[0] || null;
+  const tb = document.getElementById("moveTable");
+  tb.innerHTML = "";
+  ranked.forEach((row, i) => {
+    const tr = document.createElement("tr");
+    if (i === 0) tr.className = "best";
+    tr.innerHTML = `<td>${i + 1}</td><td>${moveName(row.move)}</td><td>${row.captured.map(name).join(",") || "-"}</td><td>${row.score}</td><td class="pv">${row.pv.map(moveName).join(" ")}</td>`;
+    tr.onclick = () => previewRow(row);
+    tb.appendChild(tr);
+  });
+  document.getElementById("applyBtn").disabled = !chosen;
+  if (!ranked.length) {
+    document.getElementById("evalLine").textContent = "当前无合法着，轮走方判负";
+    return;
+  }
+  const best = ranked[0];
+  const label = best.score > 5000 ? "接近胜势" : best.score < -5000 ? "接近败势" : "均势附近";
+  document.getElementById("evalLine").textContent =
+    (side === "red" ? "红" : "蓝") + "最佳 " + moveName(best.move) +
+    (best.captured.length ? "（吃 " + best.captured.map(name).join(",") + "）" : "") +
+    "　评分 " + best.score + "（" + label + "）";
+  previewRow(best);
+}
+
+document.getElementById("brushEmpty").onclick = () => setBrush("empty");
+document.getElementById("brushRed").onclick = () => setBrush("red");
+document.getElementById("brushBlue").onclick = () => setBrush("blue");
+document.getElementById("brushCycle").onclick = () => setBrush("cycle");
+document.getElementById("initBtn").onclick = () => {
+  pushHist();
+  board = Engine.createInitial();
+  side = "red";
+  marks = { from: null, to: null, caps: [] };
+  selected = null;
+  renderBoard();
+};
+document.getElementById("clearBtn").onclick = () => {
+  pushHist();
+  board = Array.from({ length: N }, () => Array(N).fill(null));
+  marks = { from: null, to: null, caps: [] };
+  renderBoard();
+};
+document.getElementById("undoBtn").onclick = () => {
+  const prev = history.pop();
+  if (!prev) return;
+  board = prev.board;
+  side = prev.side;
+  marks = prev.marks;
+  selected = null;
+  renderBoard();
+};
+document.getElementById("flipBtn").onclick = () => { side = Engine.opp(side); renderBoard(); };
+document.getElementById("side").onchange = e => { side = e.target.value; renderBoard(); };
+document.getElementById("playBtn").onclick = () => {
+  playMode = !playMode;
+  selected = null;
+  document.getElementById("playBtn").classList.toggle("active", playMode);
+  ["brushEmpty", "brushRed", "brushBlue", "brushCycle"].forEach(id => document.getElementById(id).classList.remove("active"));
+  document.getElementById("status").textContent = playMode ? "试走：先点己子，再点空位" : "摆谱：点击格子循环 空 → 红 → 蓝";
+  if (!playMode) document.getElementById("brushCycle").classList.add("active");
+};
+document.getElementById("solveBtn").onclick = () => {
+  const depth = Number(document.getElementById("depth").value);
+  const t0 = performance.now();
+  const ranked = Engine.analyze(board, side, depth);
+  logLine("搜索深度 " + depth + "，" + ranked.length + " 着，用时 " + Math.round(performance.now() - t0) + "ms");
+  renderMoves(ranked);
+  renderBoard();
+};
+document.getElementById("applyBtn").onclick = () => {
+  if (!chosen) return;
+  pushHist();
+  applyMove(chosen.move, side);
+  side = Engine.opp(side);
+  selected = chosen = null;
+  lastRanked = [];
+  document.getElementById("moveTable").innerHTML = "";
+  document.getElementById("applyBtn").disabled = true;
+  document.getElementById("evalLine").textContent = "已应用，轮到" + (side === "red" ? "红" : "蓝") + "。可继续计算。";
+  renderBoard();
+};
+document.getElementById("loadFen").onclick = () => {
+  try {
+    pushHist();
+    const parsed = Engine.fromFen(document.getElementById("fenBox").value);
+    board = parsed.board;
+    side = parsed.player;
+    marks = { from: null, to: null, caps: [] };
+    renderBoard();
+    logLine("已导入局面");
+  } catch (err) {
+    document.getElementById("evalLine").textContent = err.message;
+  }
+};
+document.getElementById("copyFen").onclick = async () => {
+  const text = Engine.toFen(board, side);
+  document.getElementById("fenBox").value = text;
+  try { await navigator.clipboard.writeText(text); logLine("已复制 " + text); }
+  catch { logLine("局面串：" + text); }
+};
+
+try {
+  if (location.hash.length > 1) {
+    const parsed = Engine.fromFen(decodeURIComponent(location.hash.slice(1)));
+    board = parsed.board;
+    side = parsed.player;
+  }
+} catch (e) {}
+renderBoard();
+</script>
+</body>
+</html>
